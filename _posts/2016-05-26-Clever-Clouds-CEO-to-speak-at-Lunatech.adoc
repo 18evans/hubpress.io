@@ -1,5 +1,5 @@
-# Clever Cloud’s CEO to speak at Lunatech
-
+= Clever Cloud’s CEO to speak at Lunatech
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F31656be3-83ea-4b78-bd5f-1b1da9cb5d61_quentin-adam.jpg
 :published_at: 2016-05-26
 :hp-tags: company
 
