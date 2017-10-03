@@ -210,7 +210,8 @@ As you can see, the traditional solution highly rely on nginx as load balancer, 
 ----
 val name: Name = Name.bound(Address("localhost", 10010), Address("localhost", 10011), Address("localhost", 10012))
 
-//define a clientval client: Service[http.Request, http.Response] = Http.newService(name, "client")
+//define a client
+val client: Service[http.Request, http.Response] = Http.newService(name, "client")
 ----
 
 This means you supply three addresses and put it into finagle http client. Finagle client will dispatch the request to one of address based on certain load balance algorithmn. The default algorithmn is "Exponentially Weighted Moving Average (EWMA)". Now your infstracture architechture becomes like following
@@ -338,7 +339,7 @@ object IntegerServerAndClient extends Factories with CodecConversions {
 
 Define our simple service
 
-[scala,source]
+[source,scala]
 ----
 import com.twitter.finagle.Service
 import com.twitter.util.Future
@@ -371,6 +372,7 @@ object Server {
 ----
 
 Run a client
+
 [source,scala]
 ----
 import com.twitter.finagle.Service
