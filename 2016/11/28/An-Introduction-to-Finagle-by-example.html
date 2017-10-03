@@ -12,7 +12,7 @@
     <!-- This is a comment -->
     <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
      
-    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507019551598" />
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507019934468" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
    
@@ -379,20 +379,24 @@ trait CodecConversions {
 /**
  * Converts an scodec codec into a Netty encoder.
  */
- protected def encoder[A: Codec] =
-new OneToOneEncoder {
-override def encode(ctx: ChannelHandlerContext, channel: Channel, msg: Object) =
+ protected def encoder[A: Codec] = new OneToOneEncoder {
+	override def encode(ctx: ChannelHandlerContext, channel: Channel, msg: Object) =
+	ChannelBuffers.wrappedBuffer(
+      Codec.encodeValid(msg.asInstanceOf[A]).toByteBuffer)
+ }
 
-ChannelBuffers.wrappedBuffer(        Codec.encodeValid(msg.asInstanceOf[A]).toByteBuffer      )
-}
-
-  /**    * Converts an scodec codec into a Netty decoder.
-  */  protected def decoder[A: Codec] = new OneToOneDecoder {
+ /**
+  * Converts an scodec codec into a Netty decoder.
+  */
+protected def decoder[A: Codec] = new OneToOneDecoder {
   override def decode(ctx: ChannelHandlerContext, channel: Channel, msg: Object) =
   msg match {
-  case cb: ChannelBuffer =&gt;          Codec.decodeValidValue[A](BitVector(cb.toByteBuffer)).asInstanceOf[Object]        case other =&gt; other      }
+     case cb: ChannelBuffer =&gt;
+     	Codec.decodeValidValue[A (BitVector(cb.toByteBuffer)).asInstanceOf[Object]
+      case other =&gt; other
+      }
   }
-  }</code></pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -400,20 +404,36 @@ ChannelBuffers.wrappedBuffer(        Codec.encodeValid(msg.asInstanceOf[A]).toBy
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">trait Factories { this: CodecConversions =&gt;  import com.twitter.finagle.{Codec =&gt; FinagleCodec, CodecFactory}  import org.jboss.netty.channel.{ChannelPipelineFactory, Channels}
+<pre class="highlight"><code class="language-scala" data-lang="scala">trait Factories {
+	this: CodecConversions =&gt;
+    	import com.twitter.finagle.{Codec =&gt; FinagleCodec, CodecFactory}
+        import org.jboss.netty.channel.{ChannelPipelineFactory, Channels}
 
-  /**   * Creates a Netty channel pipeline factory given input and output types.   */  private[this] def pipeline[I: Codec, O: Codec] = new ChannelPipelineFactory {    def getPipeline = {      val pipeline = Channels.pipeline()      pipeline.addLast("encoder", encoder[I])      pipeline.addLast("decoder", decoder[O])
-  pipeline    }
+  		/**
+         * Creates a Netty channel pipeline factory given input and output types.   */
+
+    private[this] def pipeline[I: Codec, O: Codec] = new ChannelPipelineFactory {
+    def getPipeline = {
+    	val pipeline = Channels.pipeline()
+        pipeline.addLast("encoder", encoder[I])
+        pipeline.addLast("decoder", decoder[O])
+        pipeline
+    }
   }
-  /**   * Creates a Finagle codec factory given input and output types.   */  protected def codecFactory[I: Codec, O: Codec] = new CodecFactory[I, O] {
-  def server = Function.const {
-  new FinagleCodec[I, O] { def pipelineFactory = pipeline[O, I] }
-  }
+  /**
+  * Creates a Finagle codec factory given input and output types.   */
+
+  protected def codecFactory[I: Codec, O: Codec] = new CodecFactory[I, O] {
+
+	def server = Function.const {
+  		new FinagleCodec[I, O] { def pipelineFactory = pipeline[O, I] }
+  	}
+
     def client = Function.const {
-    new FinagleCodec[I, O] { def pipelineFactory = pipeline[I, O] }
+    	new FinagleCodec[I, O] { def pipelineFactory = pipeline[I, O] }
     }
-    }
-    }</code></pre>
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -423,22 +443,37 @@ ChannelBuffers.wrappedBuffer(        Codec.encodeValid(msg.asInstanceOf[A]).toBy
 <div class="content">
 <pre class="highlight"><code class="language-scala" data-lang="scala">import java.net.InetSocketAddress
 
-import com.twitter.conversions.time._import com.twitter.finagle.Serviceimport com.twitter.finagle.builder.{ClientBuilder, ServerBuilder}import com.twitter.util.{Duration, Future}import scodec.Codec
+import com.twitter.conversions.time._
+import com.twitter.finagle.Service
+import com.twitter.finagle.builder.{ClientBuilder, ServerBuilder}
+import com.twitter.util.{Duration, Future}
+import scodec.Codec
 
 object IntegerServerAndClient extends Factories with CodecConversions {
 
-  /**    * Creates a Finagle server from a service that we have scodec codecs    * for both the input and output types.    */  def server[I, O](port: Int)(service: Service[I, O])(implicit ic: Codec[I], oc: Codec[O]) =    ServerBuilder()
-  .name("server")
-  .codec(codecFactory[I, O])
-  .bindTo(new InetSocketAddress(port))      .build(service)
+  /**
+   * Creates a Finagle server from a service that we have scodec codecs
+   * for both the input and output types.    */
 
-  /**    * Creates a Finagle client given input and output types with scodec codecs.    */  def client[I, O](host: String, timeout: Duration = 3.second)                  (implicit ic: Codec[I], oc: Codec[O]) =    ClientBuilder()
-  .name("client")
-  .codec(codecFactory[I, O])
-  .hosts(host)
-  .timeout(timeout)
-  .build()
-  }</code></pre>
+	def server[I, O](port: Int)(service: Service[I, O])(implicit ic: Codec[I], oc: Codec[O]) =
+    ServerBuilder()
+  		.name("server")
+  		.codec(codecFactory[I, O])
+  		.bindTo(new InetSocketAddress(port))
+        .build(service)
+
+  /**
+   * Creates a Finagle client given input and output types with scodec codecs.
+   */
+
+   def client[I, O](host: String, timeout: Duration = 3.second)           (implicit ic: Codec[I], oc: Codec[O]) =
+   ClientBuilder()
+  	.name("client")
+  	.codec(codecFactory[I, O])
+  	.hosts(host)
+  	.timeout(timeout)
+  	.build()
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -446,9 +481,14 @@ object IntegerServerAndClient extends Factories with CodecConversions {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>import com.twitter.finagle.Serviceimport com.twitter.util.Future
+<pre>import com.twitter.finagle.Service
+import com.twitter.util.Future
 
-class IntegerService extends Service[Int, Int]{  var count = 0  override def apply(request: Int): Future[Int] = {    Future.value(count + request)  }
+class IntegerService extends Service[Int, Int] {
+	var count = 0
+    override def apply(request: Int): Future[Int] = {
+    	Future.value(count + request)
+    }
 }</pre>
 </div>
 </div>
@@ -457,16 +497,19 @@ class IntegerService extends Service[Int, Int]{  var count = 0  override def app
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.Serviceimport com.twitter.util.Awaitimport scodec.codecs.implicits.{ implicitIntCodec =&gt; _, _ }
+<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.Service
+import com.twitter.util.Await
+import scodec.codecs.implicits.{ implicitIntCodec =&gt; _, _ }
 
-object Server {  def main(args: Array[String]): Unit = {    implicit val intgerCodec =
-scodec.codecs.uint8
+object Server {
+	def main(args: Array[String]): Unit = {
+    	implicit val intgerCodec = scodec.codecs.uint8
 
-    val service: Service[Int, Int] =
-    new IntegerService
-    val server = IntegerServerAndClient.server[Int, Int](9191)(service)    Await.ready(server)
+    	val service: Service[Int, Int] = new IntegerService
+    	val server = IntegerServerAndClient.server[Int, Int](9191)(service)
+        Await.ready(server)
     }
-    }</code></pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -474,30 +517,34 @@ scodec.codecs.uint8
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.Serviceimport com.twitter.util.Awaitimport scodec.codecs.implicits.{ implicitIntCodec =&gt; _, _ }
+<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.Service
+import com.twitter.util.Await
+import scodec.codecs.implicits.{ implicitIntCodec =&gt; _, _ }
 
-object Client {  def main(args: Array[String]): Unit = {
+object Client {
 
-    implicit val intgerCodec = scodec.codecs.uint8
+	def main(args: Array[String]): Unit = {
 
-    //define a client
-    val client: Service[Int, Int] = IntegerServerAndClient.client[Int, Int]("localhost:9191")    //define a request
-    val request = 4
-    //apply request on the client
-    val response = client(request)
-    //print response    response.foreach(rep =&gt; println(s"This is response $rep"))
-    Await.result(response)
+   	 	implicit val intgerCodec = scodec.codecs.uint8
+
+    	//define a client
+    	val client: Service[Int, Int] = IntegerServerAndClient.client[Int, Int]("localhost:9191")
+
+    	//define a request
+    	val request = 4
+    	//apply request on the client
+    	val response = client(request)
+    	//print response
+    	response.foreach(rep =&gt; println(s"This is response $rep"))
+    	Await.result(response)
     }
-    }</code></pre>
+}
+---
+
+## Conclusion
+
+Finagle is a very flexible asychronous, protocol-agnostic RPC framework. It can help you to build high performance micro service with any protocol. It is worth to take a look at Finch the web framework based on Finagle. You can find more detail introduction from https://blog.twitter.com/2011/finagle-a-protocol-agnostic-rpc-system[Twitter blog] and more detailed example from http://twitter.github.io/scala_school/searchbird.html[Twitter scala school].</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Finagle is a very flexible asychronous, protocol-agnostic RPC framework. It can help you to build high performance micro service with any protocol. It is worth to take a look at Finch the web framework based on Finagle. You can find more detail introduction from <a href="https://blog.twitter.com/2011/finagle-a-protocol-agnostic-rpc-system">Twitter blog</a> and more detailed example from <a href="http://twitter.github.io/scala_school/searchbird.html">Twitter scala school</a>.</p>
 </div>
 </div>
 </div>
@@ -571,8 +618,8 @@ object Client {  def main(args: Array[String]): Unit = {
         });
 
       </script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507019551598"></script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507019551598"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507019934468"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507019934468"></script>
    
   
 </body>
