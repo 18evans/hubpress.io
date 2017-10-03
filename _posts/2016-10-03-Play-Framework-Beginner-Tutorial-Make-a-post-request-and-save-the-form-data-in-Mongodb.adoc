@@ -1,4 +1,5 @@
 = Play Framework - Beginner Tutorial : Make a post request and save the form data in Mongodb
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F203ff6c0-d5a6-4101-8475-054ca096c0d6_laptop+coffee+cup+agenda.jpg
 :author: Harry Laoulakos
 :published_at: 2016-10-03
 :hp-tags: play
