@@ -115,7 +115,8 @@ customer <- genDutchCustomer.suchThat(_.accounts.exists(_.balance < 0))
 Something which is worth mentioning at this point is the usage of .suchThat. It is recommended not to write very restrictive conditions in this filter, because ScalaCheck first generates all input data, and filters it later based on the condition provided. If the condition is too restrictive, it may end up with too many inputs discarded and the tests will not run.
 
 To conclude with generators, let's have a look to a sample of our Dutch customer with at least one account with negative balance:
-```
+[source,scala]
+----
 scala> genDutchInRed.sample
 res0: Option[Customer] = Some(
  Customer(uhcamdsjupssGeVftisrdb86mfbzflr,
@@ -141,7 +142,7 @@ res0: Option[Customer] = Some(
 )
 )
 )
-```
+----
 
 This shows us that maybe we should add some conditions to the accountId or the balance, because it is not normal to deal with such values in real life. This was for example one of the reasons to create https://47deg.github.io/scalacheck-datetime/[scalaCheck-datetime]
 
@@ -149,7 +150,7 @@ This shows us that maybe we should add some conditions to the accountId or the b
 Now that we are familiar with properties and generators, it is time to write tests. We have good examples in the Scala community, because ScalaCheck is used by many Scala open source projects (like Akka or Play).
 In this case, we will continue with our concatenate example.
 
-```
+[source;
 import org.scalacheck.Properties
 import org.scalacheck.Prop.forAll
 class StringProperties extends Properties("String Properties") {
