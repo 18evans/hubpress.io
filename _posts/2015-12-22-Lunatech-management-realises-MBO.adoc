@@ -1,5 +1,5 @@
-# Lunatech management realises MBO
-
+= Lunatech management realises MBO
+:hp-image: https://prismic-io.s3.amazonaws.com/lunatech%2F5766e400-8b37-462c-adfb-ca2adcad7305_mmc-closing-lunatech-e1450875412286.jpg
 :published_at: 2015-12-22
 :hp-tags: company, 
 
