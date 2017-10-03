@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 03 Oct 2017 08:39:14 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Functional Rotterdam-15]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Tue, 03 Oct 2017 08:42:12 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Functional Rotterdam-15]]></title><description><![CDATA[<div class="paragraph">
 <p>Functional Rotterdam is a meetup held monthly in our Lunatech office about Programming Languages, Scala, Computer programming, Haskell, Functional Programming and Clojure, organized by Vijay Kiran, Development Manager at Lunatech.  Thomas Meijers, Software Engineer at Lunatech, presented Free of Interpretation. The presentation was filmed by Celeste Franco (thanks!!).</p>
 </div>
 <div class="paragraph">
@@ -141,8 +141,10 @@ extends ((ReqIn, Service[ReqOut, RepIn])
 <div class="paragraph">
 <p>If it is not clear please check image below.</p>
 </div>
-<div class="paragraph">
-<p>image::https://prismic-io.s3.amazonaws.com/lunatech/458f8af9cbc1cacaddc01c6cbe80b347cb05de28_yue2.png</p>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech/458f8af9cbc1cacaddc01c6cbe80b347cb05de28_yue2.png" alt="458f8af9cbc1cacaddc01c6cbe80b347cb05de28 yue2.png">
+</div>
 </div>
 <div class="paragraph">
 <p>In most common cases, ReqIn is equal to ReqOut, and RepIn is equal to RepOut. So we have this SimpleFilter class</p>
@@ -259,8 +261,10 @@ val resp: Future[Response] = client(req)Note: client(req) is equal to client.app
 <div class="paragraph">
 <p>What I want to emphasis here is the Load Balancer module. This module brings a lot of benefit for your application. It can simplify your application infstracture. Let&#8217;s compare it with traditional solution.</p>
 </div>
-<div class="paragraph">
-<p>image::https://prismic-io.s3.amazonaws.com/lunatech/acad2a62ff0446edb420434d1a76e023c51abff9_yue3.png</p>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech/acad2a62ff0446edb420434d1a76e023c51abff9_yue3.png" alt="acad2a62ff0446edb420434d1a76e023c51abff9 yue3.png">
+</div>
 </div>
 <div class="paragraph">
 <p>As you can see, the traditional solution highly rely on nginx as load balancer, once nginx dead your service is not reachable, in real production environment, you have master-slave nginx wiht keeplived installed on nginx machine for heartbeat detection. This looks really complex, what about if we can get rid of these nginx?Let&#8217;s have look at following code.</p>
@@ -275,8 +279,10 @@ val resp: Future[Response] = client(req)Note: client(req) is equal to client.app
 <div class="paragraph">
 <p>This means you supply three addresses and put it into finagle http client. Finagle client will dispatch the request to one of address based on certain load balance algorithmn. The default algorithmn is "Exponentially Weighted Moving Average (EWMA)". Now your infstracture architechture becomes like following</p>
 </div>
-<div class="paragraph">
-<p>image::https://prismic-io.s3.amazonaws.com/lunatech/aea2e38205fabfd9b748a93d987d0a6f63b18c2f_yue4.png</p>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech/aea2e38205fabfd9b748a93d987d0a6f63b18c2f_yue4.png" alt="aea2e38205fabfd9b748a93d987d0a6f63b18c2f yue4.png">
+</div>
 </div>
 <div class="paragraph">
 <p>Pretty simple right. Your apis talk to each other directly.</p>
@@ -289,8 +295,10 @@ val resp: Future[Response] = client(req)Note: client(req) is equal to client.app
 <div class="paragraph">
 <p>Finagle is a protocol-agnostic RPC system. It means Finagle supports every protocol if people implement it. For example: finagle-thrift is using thrift protocol. finagle-mysql implements the mysql protocol.Now, let&#8217;s look at this scenario</p>
 </div>
-<div class="paragraph">
-<p>image::https://prismic-io.s3.amazonaws.com/lunatech/c296b8d67cde582e27438c12a3f22c8785509824_yue5.png</p>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech/c296b8d67cde582e27438c12a3f22c8785509824_yue5.png" alt="c296b8d67cde582e27438c12a3f22c8785509824 yue5.png">
+</div>
 </div>
 <div class="paragraph">
 <p>We want to make a api count service to count how many times the web service has been called. In section Service and Filter. We send http request and put number as query parameter. It just feel strange that I just want to send a number to count server, to achieve that I have to send a http request. Because I don&#8217;t use any data from header, cookie and body. If the application is running on AWS, it those junk information cost money. So it&#8217;s ideal to just send a integer number to api count service. Let&#8217;s implement this by customize finagle protocol.First, we should tell finagle how to converts an scodec codec into a Netty encoder</p>
@@ -466,13 +474,16 @@ object Client {
     	response.foreach(rep =&gt; println(s"This is response $rep"))
     	Await.result(response)
     }
-}
----
-
-## Conclusion
-
-Finagle is a very flexible asychronous, protocol-agnostic RPC framework. It can help you to build high performance micro service with any protocol. It is worth to take a look at Finch the web framework based on Finagle. You can find more detail introduction from https://blog.twitter.com/2011/finagle-a-protocol-agnostic-rpc-system[Twitter blog] and more detailed example from http://twitter.github.io/scala_school/searchbird.html[Twitter scala school].</code></pre>
+}</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finagle is a very flexible asychronous, protocol-agnostic RPC framework. It can help you to build high performance micro service with any protocol. It is worth to take a look at Finch the web framework based on Finagle. You can find more detail introduction from <a href="https://blog.twitter.com/2011/finagle-a-protocol-agnostic-rpc-system">Twitter blog</a> and more detailed example from <a href="http://twitter.github.io/scala_school/searchbird.html">Twitter scala school</a>.</p>
 </div>
 </div>
 </div>]]></description><link>http://blog.lunatech.com/2016/11/28/An-Introduction-to-Finagle-by-example.html</link><guid isPermaLink="true">http://blog.lunatech.com/2016/11/28/An-Introduction-to-Finagle-by-example.html</guid><category><![CDATA[Finagle]]></category><dc:creator><![CDATA[Antoine Laffez]]></dc:creator><pubDate>Mon, 28 Nov 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[Functional IO with FS2 Streams]]></title><description><![CDATA[<div class="sect1">
