@@ -106,7 +106,7 @@ image::https://prismic-io.s3.amazonaws.com/lunatech/4694105fa7ee7fd867da04057d2f
 
 If it is not clear please check image below.
 
-image::https://prismic-io.s3.amazonaws.com/lunatech/458f8af9cbc1cacaddc01c6cbe80b347cb05de28_yue2.png
+image::https://prismic-io.s3.amazonaws.com/lunatech/458f8af9cbc1cacaddc01c6cbe80b347cb05de28_yue2.png[]
 
 In most common cases, ReqIn is equal to ReqOut, and RepIn is equal to RepOut. So we have this SimpleFilter class
 
@@ -202,7 +202,7 @@ val resp: Future[Response] = client(req)Note: client(req) is equal to client.app
 
 What I want to emphasis here is the Load Balancer module. This module brings a lot of benefit for your application. It can simplify your application infstracture. Let's compare it with traditional solution.
 
-image::https://prismic-io.s3.amazonaws.com/lunatech/acad2a62ff0446edb420434d1a76e023c51abff9_yue3.png
+image::https://prismic-io.s3.amazonaws.com/lunatech/acad2a62ff0446edb420434d1a76e023c51abff9_yue3.png[]
 
 As you can see, the traditional solution highly rely on nginx as load balancer, once nginx dead your service is not reachable, in real production environment, you have master-slave nginx wiht keeplived installed on nginx machine for heartbeat detection. This looks really complex, what about if we can get rid of these nginx?Let's have look at following code.
 
@@ -215,7 +215,7 @@ val name: Name = Name.bound(Address("localhost", 10010), Address("localhost", 10
 
 This means you supply three addresses and put it into finagle http client. Finagle client will dispatch the request to one of address based on certain load balance algorithmn. The default algorithmn is "Exponentially Weighted Moving Average (EWMA)". Now your infstracture architechture becomes like following
 
-image::https://prismic-io.s3.amazonaws.com/lunatech/aea2e38205fabfd9b748a93d987d0a6f63b18c2f_yue4.png
+image::https://prismic-io.s3.amazonaws.com/lunatech/aea2e38205fabfd9b748a93d987d0a6f63b18c2f_yue4.png[]
 
 Pretty simple right. Your apis talk to each other directly.
 
@@ -223,7 +223,7 @@ Pretty simple right. Your apis talk to each other directly.
 
 Finagle is a protocol-agnostic RPC system. It means Finagle supports every protocol if people implement it. For example: finagle-thrift is using thrift protocol. finagle-mysql implements the mysql protocol.Now, let's look at this scenario 
 
-image::https://prismic-io.s3.amazonaws.com/lunatech/c296b8d67cde582e27438c12a3f22c8785509824_yue5.png
+image::https://prismic-io.s3.amazonaws.com/lunatech/c296b8d67cde582e27438c12a3f22c8785509824_yue5.png[]
 
 We want to make a api count service to count how many times the web service has been called. In section Service and Filter. We send http request and put number as query parameter. It just feel strange that I just want to send a number to count server, to achieve that I have to send a http request. Because I don't use any data from header, cookie and body. If the application is running on AWS, it those junk information cost money. So it's ideal to just send a integer number to api count service. Let's implement this by customize finagle protocol.First, we should tell finagle how to converts an scodec codec into a Netty encoder
 
@@ -395,7 +395,7 @@ object Client {
     	Await.result(response)  
     }
 }
----
+----
 
 ## Conclusion
 
