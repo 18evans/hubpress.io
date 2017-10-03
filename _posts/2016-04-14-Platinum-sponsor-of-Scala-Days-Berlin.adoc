@@ -1,5 +1,5 @@
 = Platinum sponsor of Scala Days Berlin
-:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2Fe8193ae9-e3ad-4527-a018-950d828955fb_screen+shot+2016-04-15+at+07.26.49.png 
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2Fe88dad5d-39b8-4e0f-a107-aba8f28535cf_screen+shot+2016-04-15+at+07.24.28.png
 :published_at: 2016-04-14
 :hp-tags: scaladays
 
