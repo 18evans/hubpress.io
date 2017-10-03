@@ -12,7 +12,7 @@
     <!-- This is a comment -->
     <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
      
-    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507018985485" />
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507019551598" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
    
@@ -213,10 +213,8 @@ extends ((ReqIn, Service[ReqOut, RepIn])
 <div class="paragraph">
 <p>If it is not clear please check image below.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="http://blog.lunatech.com/images/:https://prismic-io.s3.amazonaws.com/lunatech/4694105fa7ee7fd867da04057d2fae977d89cdbc_yue1.png" alt="4694105fa7ee7fd867da04057d2fae977d89cdbc yue1.png">
-</div>
+<div class="paragraph">
+<p>image::https://prismic-io.s3.amazonaws.com/lunatech/458f8af9cbc1cacaddc01c6cbe80b347cb05de28_yue2.png</p>
 </div>
 <div class="paragraph">
 <p>In most common cases, ReqIn is equal to ReqOut, and RepIn is equal to RepOut. So we have this SimpleFilter class</p>
@@ -231,15 +229,17 @@ extends ((ReqIn, Service[ReqOut, RepIn])
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.{SimpleFilter, Service}import com.twitter.util.{Duration, Timer, Future}
+<pre class="highlight"><code class="language-scala" data-lang="scala">import com.twitter.finagle.{SimpleFilter, Service}
+import com.twitter.util.{Duration, Timer, Future}
 
 class TimeoutFilter[Req, Rep](timeout: Duration, timer: Timer)
 extends SimpleFilter[Req, Rep] {
 
   def apply(request: Req, service: Service[Req, Rep]): Future[Rep] = {
-  val res = service(request)
-  res.within(timer, timeout)  }
-  }</code></pre>
+  	val res = service(request)
+  	res.within(timer, timeout)
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -260,10 +260,13 @@ val clientWithTimeoutFilter = timeoutFilter.andThen(quickLookClient)</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">class CountFilter[Req, Rep](countClient: Service[http.Request, http.Response])
-extends SimpleFilter[Req, Rep]
-{  override def apply(request: Req, service: Service[Req, Rep]): Future[Rep] =
-{    val countRequest = http.Request(http.Method.Post, "/?count=5")    countClient(countRequest)    service(request)  }}</code></pre>
+<pre class="highlight"><code class="language-scala" data-lang="scala">class CountFilter[Req, Rep](countClient: Service[http.Request, http.Response]) extends SimpleFilter[Req, Rep] {
+
+	override def apply(request: Req, service: Service[Req, Rep]): Future[Rep] = {
+    val countRequest = http.Request(http.Method.Post, "/?count=5")
+    countClient(countRequest)    service(request)
+    }
+  }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -271,7 +274,7 @@ extends SimpleFilter[Req, Rep]
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">al service: Service[http.Request, http.Response] = new PlusTenService
+<pre class="highlight"><code class="language-scala" data-lang="scala">val service: Service[http.Request, http.Response] = new PlusTenService
 
 val countClient = Http.newService("localhost:9010")
 
@@ -315,28 +318,29 @@ val serviceWithCountFilter = countFilter.andThen(service)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">// create a http clientval client =
-Http.client.newService("example.com:80")
-// create a http requestval req =
-Request("/foo", ("my-query-string", "bar")
-)
-// apply request on the clientval resp: Future[Response] = client(req)Note: client(req) is equal to client.apply(req)</code></pre>
+<pre class="highlight"><code class="language-scala" data-lang="scala">// create a http client
+val client = Http.client.newService("example.com:80")
+
+// create a http requestval
+req = Request("/foo", ("my-query-string", "bar"))
+// apply request on the client
+
+val resp: Future[Response] = client(req)Note: client(req) is equal to client.apply(req)</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>What I want to emphasis here is the Load Balancer module. This module brings a lot of benefit for your application. It can simplify your application infstracture. Let&#8217;s compare it with traditional solution.</p>
 </div>
 <div class="paragraph">
-<p>image</p>
+<p>image::https://prismic-io.s3.amazonaws.com/lunatech/acad2a62ff0446edb420434d1a76e023c51abff9_yue3.png</p>
 </div>
 <div class="paragraph">
 <p>As you can see, the traditional solution highly rely on nginx as load balancer, once nginx dead your service is not reachable, in real production environment, you have master-slave nginx wiht keeplived installed on nginx machine for heartbeat detection. This looks really complex, what about if we can get rid of these nginx?Let&#8217;s have look at following code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">name: Name =
-Name.bound(Address("localhost", 10010), Address("localhost", 10011), Address("localhost", 10012)
-)
+<pre class="highlight"><code class="language-scala" data-lang="scala">val name: Name = Name.bound(Address("localhost", 10010), Address("localhost", 10011), Address("localhost", 10012))
+
 //define a clientval client: Service[http.Request, http.Response] = Http.newService(name, "client")</code></pre>
 </div>
 </div>
@@ -344,7 +348,7 @@ Name.bound(Address("localhost", 10010), Address("localhost", 10011), Address("lo
 <p>This means you supply three addresses and put it into finagle http client. Finagle client will dispatch the request to one of address based on certain load balance algorithmn. The default algorithmn is "Exponentially Weighted Moving Average (EWMA)". Now your infstracture architechture becomes like following</p>
 </div>
 <div class="paragraph">
-<p>image</p>
+<p>image::https://prismic-io.s3.amazonaws.com/lunatech/aea2e38205fabfd9b748a93d987d0a6f63b18c2f_yue4.png</p>
 </div>
 <div class="paragraph">
 <p>Pretty simple right. Your apis talk to each other directly.</p>
@@ -358,16 +362,24 @@ Name.bound(Address("localhost", 10010), Address("localhost", 10011), Address("lo
 <p>Finagle is a protocol-agnostic RPC system. It means Finagle supports every protocol if people implement it. For example: finagle-thrift is using thrift protocol. finagle-mysql implements the mysql protocol.Now, let&#8217;s look at this scenario</p>
 </div>
 <div class="paragraph">
-<p>image</p>
+<p>image::https://prismic-io.s3.amazonaws.com/lunatech/c296b8d67cde582e27438c12a3f22c8785509824_yue5.png</p>
 </div>
 <div class="paragraph">
 <p>We want to make a api count service to count how many times the web service has been called. In section Service and Filter. We send http request and put number as query parameter. It just feel strange that I just want to send a number to count server, to achieve that I have to send a http request. Because I don&#8217;t use any data from header, cookie and body. If the application is running on AWS, it those junk information cost money. So it&#8217;s ideal to just send a integer number to api count service. Let&#8217;s implement this by customize finagle protocol.First, we should tell finagle how to converts an scodec codec into a Netty encoder</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import org.jboss.netty.buffer.{ChannelBuffer, ChannelBuffers}import org.jboss.netty.channel.{Channel, ChannelHandlerContext}import org.jboss.netty.handler.codec.oneone.{OneToOneDecoder, OneToOneEncoder}import scodec.Codecimport scodec.bits.BitVector
+<pre class="highlight"><code class="language-scala" data-lang="scala">import org.jboss.netty.buffer.{ChannelBuffer, ChannelBuffers}
+import org.jboss.netty.channel.{Channel, ChannelHandlerContext}
+import org.jboss.netty.handler.codec.oneone.{OneToOneDecoder,OneToOneEncoder}
+import scodec.Codec
+import scodec.bits.BitVector
 
-trait CodecConversions {  /**    * Converts an scodec codec into a Netty encoder.    */  protected def encoder[A: Codec] =
+trait CodecConversions {
+/**
+ * Converts an scodec codec into a Netty encoder.
+ */
+ protected def encoder[A: Codec] =
 new OneToOneEncoder {
 override def encode(ctx: ChannelHandlerContext, channel: Channel, msg: Object) =
 
@@ -559,8 +571,8 @@ object Client {  def main(args: Array[String]): Unit = {
         });
 
       </script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507018985485"></script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507018985485"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507019551598"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507019551598"></script>
    
   
 </body>
