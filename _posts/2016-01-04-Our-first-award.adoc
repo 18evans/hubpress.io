@@ -1,4 +1,5 @@
-# Our first award!
+= Our first award!
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2Fadf48484-d54d-4f51-8280-ed9193bd67c2_nominatielabel+2015.png
 :published_at: 2016-01-04
 :hp-tags: company
 
