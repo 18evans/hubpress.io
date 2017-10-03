@@ -16,9 +16,9 @@
     "disqus": ""
   },
   "socialnetwork": {
-    "email": "",
-    "github": "",
-    "twitter": "",
+    "email": "info@lunatech.com",
+    "github": "https://github.com/lunatech-labs",
+    "twitter": "https://twitter.com/lunatechlabs",
     "facebook": "",
     "googleplus": "",
     "instagram": "",
@@ -31,10 +31,10 @@
     "name": "casper"
   },
   "urls": {
-    "site": "https://pepite.github.io/hubpress.io",
-    "hubpress": "https://pepite.github.io/hubpress.io",
-    "theme": "//pepite.github.io/hubpress.io/themes/casper",
-    "images": "https://pepite.github.io/hubpress.io/images"
+    "site": "https://blog.lunatech.com",
+    "hubpress": "https://lunatech-labs.github.io/hubpress.io",
+    "theme": "//lunatech-labs.github.io/hubpress.io/themes/casper",
+    "images": "https://lunatech-labs.github.io/hubpress.io/images"
   },
   "initialisationConfigComponent": {
     "name": "initialise-configuration",
