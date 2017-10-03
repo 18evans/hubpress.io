@@ -1,4 +1,5 @@
 # Scala training camp at Lunatech
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F778fbe3d-5490-4aab-b704-9f7117e107a2_dsc_6503.jpg
 :published_at: 2016-05-19
 :hp-tags: scala, office
 
