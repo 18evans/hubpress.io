@@ -115,6 +115,7 @@ customer <- genDutchCustomer.suchThat(_.accounts.exists(_.balance < 0))
 Something which is worth mentioning at this point is the usage of .suchThat. It is recommended not to write very restrictive conditions in this filter, because ScalaCheck first generates all input data, and filters it later based on the condition provided. If the condition is too restrictive, it may end up with too many inputs discarded and the tests will not run.
 
 To conclude with generators, let's have a look to a sample of our Dutch customer with at least one account with negative balance:
+
 [source,scala]
 ----
 scala> genDutchInRed.sample
@@ -150,7 +151,8 @@ This shows us that maybe we should add some conditions to the accountId or the b
 Now that we are familiar with properties and generators, it is time to write tests. We have good examples in the Scala community, because ScalaCheck is used by many Scala open source projects (like Akka or Play).
 In this case, we will continue with our concatenate example.
 
-[source;
+[source,scala]
+----
 import org.scalacheck.Properties
 import org.scalacheck.Prop.forAll
 class StringProperties extends Properties("String Properties") {
@@ -163,7 +165,7 @@ s1.length + s2.length >= 0
  (s + s).length == len + len
 }
 }
-```
+----
 
 Our properties file can be as simple as that, or we can make it as complicated as we need. We can also integrate it with http://www.scalatest.org/user_guide/writing_scalacheck_style_properties[ScalaTest] or https://etorreborre.github.io/specs2/guide/SPECS2-3.0/org.specs2.guide.UseScalaCheck.html[Specs2]
 
