@@ -31,10 +31,10 @@
     "name": "casper"
   },
   "urls": {
-    "site": "https://blog.lunatech.com",
-    "hubpress": "https://lunatech-labs.github.io/hubpress.io",
-    "theme": "//lunatech-labs.github.io/hubpress.io/themes/casper",
-    "images": "https://lunatech-labs.github.io/hubpress.io/images"
+    "site": "http://blog.lunatech.com",
+    "hubpress": "http://blog.lunatech.com",
+    "theme": "//blog.lunatech.com/themes/casper",
+    "images": "http://blog.lunatech.com/images"
   },
   "initialisationConfigComponent": {
     "name": "initialise-configuration",
