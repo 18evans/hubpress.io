@@ -1,4 +1,5 @@
-= Moving From Java To Scala 
+= Moving From Java To Scala
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2Fd464580c-7c70-4cc0-aff6-d9d78728c220_adobestock_95877688.jpeg
 :published_at: 2016-08-17
 :hp-tags: scala, java
 
