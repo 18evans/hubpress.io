@@ -1,4 +1,5 @@
 = On the road again: Scala days Berlin 2016
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F87ffc18a-951d-4a5e-932b-8ce25142defe_berlin.jpg
 :published_at: 2016-05-16
 :hp-tags: scaladays
 
