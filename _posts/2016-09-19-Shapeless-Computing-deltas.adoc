@@ -73,6 +73,7 @@ val homer = Character("Homer Simpson", 42, Address(742, "Evergreen Terrace", "Sp
 val ned = Character("Ned Flanders", 42, Address(744, "Evergreen Terrace", "Springfield"))
 ----
 *Going further*
+
 That’s quite nice, but still a bit coarse-grained
 
 SimpleDelta doesn’t work on nested fields
