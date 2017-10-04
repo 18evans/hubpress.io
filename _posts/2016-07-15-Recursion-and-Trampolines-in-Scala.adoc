@@ -24,7 +24,7 @@ We've defined even in a very natural way: an value is `even` when it's zero, or 
 
 Let's ignore the problem this code has with negative integers, and the fact that an `O(n)` algorithm for computing `even` and `odd` is not ideal, and focus on a single problem: this code breaks for large n:
 
-[source,scala]
+[source, scala]
 ----
 scala> even(5000)
 res3: Boolean = true
@@ -76,10 +76,12 @@ def odd(i: Int): Boolean = !even(i)
 
 We've rewritten `even` to be tail-recursive, and now Scala will optimize it for us:
 
-```
+[source, scala]
+----
 scala> even(500000000)
 res25: Boolean = true
-```
+----
+
 it no longer blows up for large numbers.
 
 
@@ -134,10 +136,11 @@ def run(evenOdd: EvenOdd): Boolean = evenOdd match {
 
 Now we have expressed `even` and `odd` in their natural, mutually recursive way, and we still have a stack safe interpreter:
 
-```
+[source, scala]
+----
 scala> run(even(5000000))
 res1: Boolean = true
-```
+----
 
 The disadvantage of this is that this is significantly slower. Unfortunately, we can't seem to have our cake and eat it too :(
 
@@ -205,13 +208,14 @@ even(3000).result
 
 I compared the performance of these solutions with JMH, and these are the results:
 
-```
+[source, scala]
+----
 [info] Benchmark Mode Cnt Score Error Units
 [info] Trampolines.GeneralTrampolineRunner.bench thrpt 30 44916.024 ± 388.202 ops/s
 [info] Trampolines.ScalaTrampolineRunner.bench thrpt 30 52106.426 ± 408.242 ops/s
 [info] Trampolines.SpecializedTrampolineRunner.bench thrpt 30 94002.234 ± 1584.913 ops/s
 [info] Trampolines.StackRunner.bench thrpt 30 358382.321 ± 6622.659 ops/s
-```
+----
 
 As expected, the version that runs on the stack is the fastest. But remember that this is the version that breaks for a large number of recursions.
 
