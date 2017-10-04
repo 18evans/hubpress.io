@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:06:51 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:11:23 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2081,7 +2081,7 @@ def odd(i: Int): Boolean = !even(i)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>scala&gt; even(500000000)
+<pre class="highlight"><code class="language-scala" data-lang="scala">scala&gt; even(500000000)
 res25: Boolean = true</code></pre>
 </div>
 </div>
@@ -2162,7 +2162,7 @@ def run(evenOdd: EvenOdd): Boolean = evenOdd match {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>scala&gt; run(even(5000000))
+<pre class="highlight"><code class="language-scala" data-lang="scala">scala&gt; run(even(5000000))
 res1: Boolean = true</code></pre>
 </div>
 </div>
@@ -2250,7 +2250,7 @@ even(3000).result</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>[info] Benchmark Mode Cnt Score Error Units
+<pre class="highlight"><code class="language-scala" data-lang="scala">[info] Benchmark Mode Cnt Score Error Units
 [info] Trampolines.GeneralTrampolineRunner.bench thrpt 30 44916.024 ± 388.202 ops/s
 [info] Trampolines.ScalaTrampolineRunner.bench thrpt 30 52106.426 ± 408.242 ops/s
 [info] Trampolines.SpecializedTrampolineRunner.bench thrpt 30 94002.234 ± 1584.913 ops/s
