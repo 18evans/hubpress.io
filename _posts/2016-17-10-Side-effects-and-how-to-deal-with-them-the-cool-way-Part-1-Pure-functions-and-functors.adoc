@@ -1,5 +1,5 @@
 = Side effects and how to deal with them the cool way, Part 1: Pure functions and functors
-
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F8f06bba2-3811-49f1-a033-b601509aa6bf_adobestock_52920415.jpeg
 :published_at: 2016-17-10
 :hp-tags: fp
 
