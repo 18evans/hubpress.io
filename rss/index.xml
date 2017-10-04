@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:18:08 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:47:23 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1168,6 +1168,71 @@ object SimpleDelta {
 
 	def apply[A, R &lt;: HList](l: A, r: A)(implicit genA: Generic.Aux[A, R], delta: SimpleDelta[R]): delta.Out = delta(genA.to(l), genA.to(r))
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lets try it out</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">case class Address(number: Int, street: String, city: String)
+
+case class Character(name: String, age: Int, address: Address)
+
+val homer = Character("Homer Simpson", 42, Address(742, "Evergreen Terrace", "Springfield"))
+
+val ned = Character("Ned Flanders", 42, Address(744, "Evergreen Terrace", "Springfield"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Going further</strong>
+That’s quite nice, but still a bit coarse-grained</p>
+</div>
+<div class="paragraph">
+<p>SimpleDelta doesn’t work on nested fields</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">trait Delta[R &lt;: HList] extends DepFn2[R, R]{  type Out &lt;: HList}object Delta extends LowPriorityDelta {  type Aux[R &lt;: HList, O &lt;: HList] = Delta[R]{type Out = O}  implicit def hnilDelta: Aux[HNil, HNil] = new Delta[HNil] {    override type Out = HNil    override def apply(l: HNil, r: HNil): Out = HNil  }
+
+  /**  * H is the type of the head, in this case it is a product  * GH is the H as HList  * DH is the type of the delta of the head (here goes the embedded diff)    * T is the type of the tail  * DT is type of the tail delta  */  implicit def hconsGenDelta[H, GH &lt;: HList, DH &lt;: HList,  T &lt;: HList, DT &lt;: HList]         // if there is a generic representation for the head    (implicit genH: Generic.Aux[H, GH],         // if I am able to compute the delta for these               nested: Delta.Aux[GH, DH],         // if I am able to compute the delta of the tail              tailDelta: Delta.Aux[T, DT])    //then I am able to compute the delta of the whole list    : Aux[H :: T, DH :: DT] = new Delta[H :: T] {      override type Out = DH :: DT
+
+      override def apply(l: H :: T, r: H :: T): Out =        nested(genH.to(l.head), genH.to(r.head)) :: tailDelta(l.tail, r.tail)    }
+
+  def apply[A, R &lt;: HList](l: A, r: A)    (implicit genA: Generic.Aux[A, R],
+  delta: Delta[R]) : delta.Out =      delta(genA.to(l), genA.to(r))}
+
+//To handle types that don't have a generic type , like String, Int, etctrait LowPriorityDelta {
+implicit def hconsDelta[H, T &lt;: HList, DT &lt;: HList]
+(implicit tailDelta: Delta.Aux[T, DT])
+: Delta.Aux[H :: T, Diff[H] :: DT] = new Delta[H :: T] {
+override type Out = Diff[H] :: DT      override def apply(l: H :: T, r: H :: T): Out =
+Diff(l.head, r.head) :: tailDelta(l.tail, r.tail)    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Patcher</strong>
+A typeclass that takes the generic representation of an object and a delta, modifies the generic representation using the delta</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">trait Patcher[R &lt;: HList, P &lt;: HList] {  def apply(repr: R, patch: P): R}
+
+trait LowPriorityPatcher {
+
+  implicit def hconsPatcher[H, T &lt;: HList, PT &lt;: HList]  (implicit tailPatcher: Patcher[T, PT]): Patcher[H::T, Diff[H]::PT] =     new Patcher[H::T, Diff[H]::PT] {    	override def apply(repr: H :: T, patch: Diff[H] :: PT): H :: T = {      		val head = patch.head match {        		case Identical(_) =&gt; repr.head        		case Different(_, x) =&gt; x      			}      		head :: tailPatcher(repr.tail, patch.tail)    	}  }}
+
+object Patcher extends LowPriorityPatcher{
+
+  def apply[A, R &lt;: HList, P &lt;: HList](value: A, patch: P)  (implicit gen: Generic.Aux[A, R], patcher: Patcher[R, P]): A =      gen.from(patcher(gen.to(value), patch))
+
+  implicit def hnilPatcher: Patcher[HNil, HNil] =   	new Patcher[HNil, HNil]{          override def apply(repr: HNil, patch: HNil): HNil = HNil  	}
+
+  implicit def hconsGenPatcher[H, GH &lt;: HList, T &lt;: HList, PH &lt;: HList,  PT &lt;: HList]  (implicit genH: Generic.Aux[H, GH],    headPatcher: Patcher[GH, PH],
+  tailPatcher: Patcher[T, PT]): Patcher[H::T, PH::PT] =
+  new Patcher[H::T, PH::PT] {    		override def apply(repr: H :: T, patch: PH :: PT): H :: T =				genH.from(headPatcher(genH.to(repr.head), patch.head)) :: tailPatcher(repr.tail, patch.tail)			}
+  }</code></pre>
 </div>
 </div>
 </div>
