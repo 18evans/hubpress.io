@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:50:38 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Oct 2017 09:54:07 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -732,7 +732,7 @@ object Client {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>"co.fs2" %% "fs2-core" % "0.9.1",
+<pre class="highlight"><code class="language-scala" data-lang="scala">"co.fs2" %% "fs2-core" % "0.9.1",
 "co.fs2" %% "fs2-io" % "0.9.1",</code></pre>
 </div>
 </div>
@@ -1214,8 +1214,10 @@ Diff(l.head, r.head) :: tailDelta(l.tail, r.tail)    }
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Patcher</strong>
-A typeclass that takes the generic representation of an object and a delta, modifies the generic representation using the delta</p>
+<p><strong>Patcher</strong></p>
+</div>
+<div class="paragraph">
+<p>A typeclass that takes the generic representation of an object and a delta, modifies the generic representation using the delta</p>
 </div>
 <div class="listingblock">
 <div class="content">
