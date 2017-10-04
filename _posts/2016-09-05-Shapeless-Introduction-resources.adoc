@@ -1,5 +1,5 @@
 = Shapeless: Introduction resources
-:image-hp:: https://prismic-io.s3.amazonaws.com/lunatech%2Fac7e7824-e395-4c1c-a180-2e33d4c1a917_teamarketresearch.jpg
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2Fac7e7824-e395-4c1c-a180-2e33d4c1a917_teamarketresearch.jpg
 :published_at: 2016-09-05
 :hp-tags: shapeless
 
