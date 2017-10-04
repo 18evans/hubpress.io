@@ -24,7 +24,8 @@ We've defined even in a very natural way: an value is `even` when it's zero, or 
 
 Let's ignore the problem this code has with negative integers, and the fact that an `O(n)` algorithm for computing `even` and `odd` is not ideal, and focus on a single problem: this code breaks for large n:
 
-```
+[source,scala]
+----
 scala> even(5000)
 res3: Boolean = true
 scala> even(50000)
@@ -38,7 +39,7 @@ at Trampolines$Stack$.even(trampolines.scala:9)
 ...
 at Trampolines$Stack$.even(trampolines.scala:9)
 at Trampolines$Stack$.odd(trampolines.scala:14)
-```
+----
 
 
 In the remainder of this post we look at various strategies for preventing recursive programs from running out of memory.
