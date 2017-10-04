@@ -10,35 +10,58 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- This is a comment -->
-    <link rel="shortcut icon" href="https://pepite.github.io/hubpress.io/favicon.ico">
+    <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
      
-    <link rel="stylesheet" type="text/css" href="//pepite.github.io/hubpress.io/themes/casper/assets/css/screen.css?v=1483627677846" />
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507108011596" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
    
-    <link rel="canonical" href="https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
+    <link rel="canonical" href="http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="Lunatech&#x27;s engineer blog" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
     <meta property="og:title" content="Recursion and Trampolines in Scala" />
     <meta property="og:description" content="Recursion is beautiful. As an example, let&amp;#8217;s consider this perfectly acceptable example of defining the functions even and odd in Scala, whose semantics you can guess: def even(i: Int): Boolean &#x3D; i match {   case 0 &#x3D;&amp;gt; true   case _ &#x3D;&amp;gt; odd(i - 1) } def odd(i: Int): Boolean" />
-    <meta property="og:url" content="https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
+    <meta property="og:url" content="http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/pepite/hubpress.io/gh-pages/images/ordinateur-de-bureau-pc.jpg" />
+    <meta property="article:published_time" content="2016-07-15T00:00:00.000Z" />
     <meta property="article:tag" content="scala" />
-    <meta property="article:tag" content=" recursion" />
-    <meta property="article:tag" content=" fp" />
+    <meta property="article:tag" content="recursion" />
+    <meta property="article:tag" content="fp" />
     
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Recursion and Trampolines in Scala" />
     <meta name="twitter:description" content="Recursion is beautiful. As an example, let&amp;#8217;s consider this perfectly acceptable example of defining the functions even and odd in Scala, whose semantics you can guess: def even(i: Int): Boolean &#x3D; i match {   case 0 &#x3D;&amp;gt; true   case _ &#x3D;&amp;gt; odd(i - 1) } def odd(i: Int): Boolean" />
-    <meta name="twitter:url" content="https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
+    <meta name="twitter:url" content="http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html" />
+    <meta name="twitter:image:src" content="https://raw.githubusercontent.com/pepite/hubpress.io/gh-pages/images/ordinateur-de-bureau-pc.jpg" />
     
     <script type="application/ld+json">
-null
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lunatech's engineer blog",
+    "author": {
+        "@type": "Person",
+        "name": "Nicolas Leroux",
+        "image": "https://avatars2.githubusercontent.com/u/180989?v=4",
+        "url": "http://blog.lunatech.com/author/pepite/",
+        "sameAs": "http://lunatech.com"
+    },
+    "headline": "Recursion and Trampolines in Scala",
+    "url": "http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html",
+    "datePublished": "2016-07-15T00:00:00.000Z",
+    "image": "https://raw.githubusercontent.com/pepite/hubpress.io/gh-pages/images/ordinateur-de-bureau-pc.jpg",
+    "keywords": "scala, recursion, fp",
+    "description": "Recursion is beautiful. As an example, let&amp;#8217;s consider this perfectly acceptable example of defining the functions even and odd in Scala, whose semantics you can guess: def even(i: Int): Boolean &#x3D; i match {   case 0 &#x3D;&amp;gt; true   case _ &#x3D;&amp;gt; odd(i - 1) } def odd(i: Int): Boolean"
+}
     </script>
 
     <meta name="generator" content="HubPress" />
-    <link rel="alternate" type="application/rss+xml" title="Lunatech&#x27;s engineer blog" href="https://pepite.github.io/hubpress.io/rss/" />
+    <link rel="alternate" type="application/rss+xml" title="Lunatech&#x27;s engineer blog" href="http://blog.lunatech.com/rss/" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 </head>
 <body class="post-template tag-scala tag-recursion tag-fp nav-closed">
 
@@ -51,7 +74,7 @@ null
 
 <header class="main-header post-head " style="background-image: url(https://raw.githubusercontent.com/pepite/hubpress.io/gh-pages/images/ordinateur-de-bureau-pc.jpg)">
     <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="https://pepite.github.io/hubpress.io"><img src="http://lunatech.com/assets/images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Lunatech&#x27;s engineer blog" /></a>
+        <a class="blog-logo" href="http://blog.lunatech.com"><img src="http://lunatech.com/assets/images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Lunatech&#x27;s engineer blog" /></a>
     </nav>
 </header>
 
@@ -61,7 +84,7 @@ null
         <header class="post-header">
             <h1 class="post-title">Recursion and Trampolines in Scala</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2016-07-15">15 July 2016</time>  on <a href="https://pepite.github.io/hubpress.io/tag/scala/">scala</a>, <a href="https://pepite.github.io/hubpress.io/tag/recursion/"> recursion</a>, <a href="https://pepite.github.io/hubpress.io/tag/fp/"> fp</a>
+                <time class="post-date" datetime="2016-07-15">15 July 2016</time>  on <a href="http://blog.lunatech.com/tag/scala/">scala</a>, <a href="http://blog.lunatech.com/tag/recursion/">recursion</a>, <a href="http://blog.lunatech.com/tag/fp/">fp</a>
             </section>
         </header>
 
@@ -92,7 +115,7 @@ def odd(i: Int): Boolean = i match {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>scala&gt; even(5000)
+<pre class="highlight"><code class="language-scala" data-lang="scala">scala&gt; even(5000)
 res3: Boolean = true
 scala&gt; even(50000)
 java.lang.StackOverflowError
@@ -363,13 +386,13 @@ even(3000).result</code></pre>
 
 
             <figure class="author-image">
-                <a class="img" href="https://pepite.github.io/hubpress.io/author/pepite/" style="background-image: url(https://avatars.githubusercontent.com/u/180989?v&#x3D;3)"><span class="hidden">Nicolas Leroux's Picture</span></a>
+                <a class="img" href="http://blog.lunatech.com/author/pepite/" style="background-image: url(https://avatars2.githubusercontent.com/u/180989?v&#x3D;4)"><span class="hidden">Nicolas Leroux's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="https://pepite.github.io/hubpress.io/author/pepite/">Nicolas Leroux</a></h4>
+                <h4><a href="http://blog.lunatech.com/author/pepite/">Nicolas Leroux</a></h4>
 
-                    <p>Read <a href="https://pepite.github.io/hubpress.io/author/pepite/">more posts</a> by this author.</p>
+                    <p>Read <a href="http://blog.lunatech.com/author/pepite/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     <span class="author-location icon-location">Rotterdam</span>
                     <span class="author-link icon-link"><a href="http://lunatech.com">http://lunatech.com</a></span>
@@ -379,15 +402,15 @@ even(3000).result</code></pre>
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Recursion%20and%20Trampolines%20in%20Scala&amp;url=https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Recursion%20and%20Trampolines%20in%20Scala&amp;url=http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://pepite.github.io/hubpress.io/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.lunatech.com/2016/07/15/Recursion-and-Trampolines-in-Scala.html"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -406,7 +429,7 @@ even(3000).result</code></pre>
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://pepite.github.io/hubpress.io">Lunatech&#x27;s engineer blog</a> &copy; 2017</section>
+            <section class="copyright"><a href="http://blog.lunatech.com">Lunatech&#x27;s engineer blog</a> &copy; 2017</section>
             <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
         </footer>
 
@@ -427,8 +450,8 @@ even(3000).result</code></pre>
         });
 
       </script>
-    <script type="text/javascript" src="//pepite.github.io/hubpress.io/themes/casper/assets/js/jquery.fitvids.js?v=1483627677846"></script>
-    <script type="text/javascript" src="//pepite.github.io/hubpress.io/themes/casper/assets/js/index.js?v=1483627677846"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507108011596"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507108011596"></script>
    
   
 </body>
