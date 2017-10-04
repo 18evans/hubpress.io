@@ -12,7 +12,7 @@
     <!-- This is a comment -->
     <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
      
-    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507108627578" />
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507108688467" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
    
@@ -106,7 +106,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">case class JsonExample (    a1:String, a2:String, a3:String, a4:String, a5:String, a6:String,    a7:String, a8:String, a9:String, a10:String, a11:String, a12:String,    a13:String, a14:String, a15:String, a16:String, a17:String, a18:String,    a19:String, a20:String, a21:String, a22:String, a23:String, a24:String)</code></pre>
+<pre class="highlight"><code class="language-json" data-lang="json">case class JsonExample (    a1:String, a2:String, a3:String, a4:String, a5:String, a6:String,    a7:String, a8:String, a9:String, a10:String, a11:String, a12:String,    a13:String, a14:String, a15:String, a16:String, a17:String, a18:String,    a19:String, a20:String, a21:String, a22:String, a23:String, a24:String)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -122,58 +122,62 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>&lt;console&gt;:16: error: No unapply or unapplySeq function found       implicit val jsonExampleFormat = Json.format[JsonExample]                                                   ^</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Instead we can use <a href="https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators">Play-Json extensions</a>(requires play-json &gt;= 2.4)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import ai.x.play.json.Jsonximplicit val jsonExampleFormat = Jsonx.formatCaseClass[JsonExample]
+<pre class="highlight"><code class="language-scala" data-lang="scala">&lt;console&gt;:16: error: No unapply or unapplySeq function found       implicit val jsonExampleFormat = Json.format[JsonExample]                             ----
 
-jsonExampleFormat: play.api.libs.json.Format[JsonExample] = $anon$1@b7f7890</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>So now we have a Play Json format for a case class with more than 22 fields, and can use it as described in <a href="https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators">Play Json documentation</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_second_approach">Second approach</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>I don’t consider having a case class with so many fields a good solution.</p>
-</div>
-<div class="paragraph">
-<p>A better solution is to organize these fields in “logical” embedded case classes.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">case class A (    a1:String, a2:String, a3:String, a4:String,    a5:String, a6:String, a7:String, a8:String)
 
-case class B (    a9:String, a10:String, a11:String, a12:String,    a13:String, a14:String, a15:String, a16:String  )case class C (    a17:String, a18:String, a19:String, a20:String,    a21:String, a22:String, a23:String, a24:String  )case class JsonExample2 (    a : A,    b : B,    c : C  )</code></pre>
+Instead we can use https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators[Play-Json extensions](requires play-json &gt;= 2.4)
+
+[source, scala]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We use a “regular” play json format for the embedded case classes.</p>
+<p>import ai.x.play.json.Jsonximplicit val jsonExampleFormat = Jsonx.formatCaseClass[JsonExample]</p>
+</div>
+<div class="paragraph">
+<p>jsonExampleFormat: play.api.libs.json.Format[JsonExample] = $anon$1@b7f7890</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import play.api.libs.json._implicit val jsonAFormat : Format[A] = Json.format[A]implicit val jsonBFormat : Format[B]= Json.format[B]implicit val jsonCFormat : Format[C] = Json.format[C]</code></pre>
+<pre>So now we have a Play Json format for a case class with more than 22 fields, and can use it as described in https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators[Play Json documentation]
+
+## Second approach
+I don’t consider having a case class with so many fields a good solution.
+
+A better solution is to organize these fields in “logical” embedded case classes.
+
+[source, scala]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>And the “trick” now is to use the JsPath <a href="https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators">Play Json Combinator</a> for the embedded case classes without any path.</p>
+<p>case class A (    a1:String, a2:String, a3:String, a4:String,    a5:String, a6:String, a7:String, a8:String)</p>
+</div>
+<div class="paragraph">
+<p>case class B (    a9:String, a10:String, a11:String, a12:String,    a13:String, a14:String, a15:String, a16:String  )case class C (    a17:String, a18:String, a19:String, a20:String,    a21:String, a22:String, a23:String, a24:String  )case class JsonExample2 (    a : A,    b : B,    c : C  )</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-scala" data-lang="scala">import play.api.libs.functional.syntax._implicit val jsonExample2Format: Format[JsonExample2]  = (  (JsPath).format[A] and  (JsPath).format[B] and  (JsPath).format[C])(JsonExample2.apply, unlift(JsonExample2.unapply))</code></pre>
+<pre>We use a “regular” play json format for the embedded case classes.
+
+[source, scala]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>That’s all folks!</p>
+<p>import play.api.libs.json._implicit val jsonAFormat : Format[A] = Json.format[A]implicit val jsonBFormat : Format[B]= Json.format[B]implicit val jsonCFormat : Format[C] = Json.format[C]</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>And the “trick” now is to use the JsPath https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators[Play Json Combinator] for the embedded case classes without any path.
+
+[source, scala]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>import play.api.libs.functional.syntax._implicit val jsonExample2Format: Format[JsonExample2]  = (  (JsPath).format[A] and  (JsPath).format[B] and  (JsPath).format[C])(JsonExample2.apply, unlift(JsonExample2.unapply))</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>That’s all folks!</pre>
+</div>
 </div>
 </div>
 </div>
@@ -247,8 +251,8 @@ case class B (    a9:String, a10:String, a11:String, a12:String,    a13:String, 
         });
 
       </script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507108627578"></script>
-    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507108627578"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507108688467"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507108688467"></script>
    
   
 </body>
