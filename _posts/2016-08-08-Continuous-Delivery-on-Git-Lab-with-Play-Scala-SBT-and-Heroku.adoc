@@ -15,9 +15,10 @@ Heroku is a cloud application platform that has support for Play applications. T
 
 Dpl is a simple command line deployment tool that supports Heroku. We can deploy our Play application to Heroku using dpl with the following command:
 
-```
+[source, scala]
+----
 dpl --provider=heroku --app=<application-name> --api-key=<api-key>
-```
+----
 
 First you have to create an application in Heroku.`<application-name>` in the command above should be substituted with the name you gave the application. Additionally, `<api-key>` should be substituted by your Heroku API key which you can find under (under https://dashboard.heroku.com/account[Account] > API Key).
 
@@ -25,7 +26,8 @@ First you have to create an application in Heroku.`<application-name>` in the co
 We extend the definition of our pipeline in the .gitlab-ci.yml file by adding a deploy stage and in the deploy stage, we install dpl and instruct it to deploy the new version of the application to Heroku. To hide the API key it is passed via a secret variable. This can be added in GitLab in your project’s settings under *Variables*.
 
 The .gitlab-ci.yml file now looks like this:
-```
+[source, scala]
+----
 stages: 
 - test  
 - deploy
@@ -43,7 +45,8 @@ script:
 - gem install dpl 
 # Deploy to Heroku 
 - dpl --provider=heroku --app=lunatech-demo-cd-play-scala --api-key=$HEROKU_API_KEY
-```
+----
+
 After pushing this .gitlab-ci.yml file to our GitLab repository containing the Play project, our continuous delivery pipeline is enabled. On every new push, the tests of the project are run and if the tests pass, the new version of the application is deployed to Heroku using dpl.
 
 == Source Code
