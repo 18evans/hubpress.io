@@ -10,35 +10,57 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- This is a comment -->
-    <link rel="shortcut icon" href="https://pepite.github.io/hubpress.io/favicon.ico">
+    <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
      
-    <link rel="stylesheet" type="text/css" href="//pepite.github.io/hubpress.io/themes/casper/assets/css/screen.css?v=1505737863944" />
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507107592315" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
    
-    <link rel="canonical" href="https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
+    <link rel="canonical" href="http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
     <meta name="referrer" content="origin" />
     
     <meta property="og:site_name" content="Lunatech&#x27;s engineer blog" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
     <meta property="og:title" content="Syntactically correct and type-safe JPA queries in Play 2.0" />
     <meta property="og:description" content="For all three approaches we’ll use the same use case: find a User object by its ‘username’ property. Java Persistence API query language An easy way to read data from our database is by creating a ‘dynamic query’ with use of the Java Persistance API (JPA) query language, a" />
-    <meta property="og:url" content="https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
+    <meta property="og:url" content="http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
+    <meta property="og:image" content="https://prismic-io.s3.amazonaws.com/lunatech%2F01cfb7d3-0b3d-4087-8e2c-fea55db3269b_adobestock_36435343.jpeg" />
+    <meta property="article:published_time" content="2015-07-15T00:00:00.000Z" />
     <meta property="article:tag" content="scala" />
-    <meta property="article:tag" content=" recursion" />
-    <meta property="article:tag" content=" fp" />
+    <meta property="article:tag" content="recursion" />
+    <meta property="article:tag" content="fp" />
     
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Syntactically correct and type-safe JPA queries in Play 2.0" />
     <meta name="twitter:description" content="For all three approaches we’ll use the same use case: find a User object by its ‘username’ property. Java Persistence API query language An easy way to read data from our database is by creating a ‘dynamic query’ with use of the Java Persistance API (JPA) query language, a" />
-    <meta name="twitter:url" content="https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
+    <meta name="twitter:url" content="http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html" />
+    <meta name="twitter:image:src" content="https://prismic-io.s3.amazonaws.com/lunatech%2F01cfb7d3-0b3d-4087-8e2c-fea55db3269b_adobestock_36435343.jpeg" />
     
     <script type="application/ld+json">
-null
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lunatech's engineer blog",
+    "author": {
+        "@type": "Person",
+        "name": "Antoine Laffez",
+        "image": "https://avatars3.githubusercontent.com/u/32063588?v=4",
+        "url": "http://blog.lunatech.com/author/Antoinelunatech/"
+    },
+    "headline": "Syntactically correct and type-safe JPA queries in Play 2.0",
+    "url": "http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html",
+    "datePublished": "2015-07-15T00:00:00.000Z",
+    "image": "https://prismic-io.s3.amazonaws.com/lunatech%2F01cfb7d3-0b3d-4087-8e2c-fea55db3269b_adobestock_36435343.jpeg",
+    "keywords": "scala, recursion, fp",
+    "description": "For all three approaches we’ll use the same use case: find a User object by its ‘username’ property. Java Persistence API query language An easy way to read data from our database is by creating a ‘dynamic query’ with use of the Java Persistance API (JPA) query language, a"
+}
     </script>
 
     <meta name="generator" content="HubPress" />
-    <link rel="alternate" type="application/rss+xml" title="Lunatech&#x27;s engineer blog" href="https://pepite.github.io/hubpress.io/rss/" />
+    <link rel="alternate" type="application/rss+xml" title="Lunatech&#x27;s engineer blog" href="http://blog.lunatech.com/rss/" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 </head>
 <body class="post-template tag-scala tag-recursion tag-fp nav-closed">
 
@@ -49,9 +71,9 @@ null
         
 
 
-<header class="main-header post-head no-cover">
-    <nav class="main-nav  clearfix">
-        <a class="blog-logo" href="https://pepite.github.io/hubpress.io"><img src="http://lunatech.com/assets/images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Lunatech&#x27;s engineer blog" /></a>
+<header class="main-header post-head " style="background-image: url(https://prismic-io.s3.amazonaws.com/lunatech%2F01cfb7d3-0b3d-4087-8e2c-fea55db3269b_adobestock_36435343.jpeg)">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="http://blog.lunatech.com"><img src="http://lunatech.com/assets/images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Lunatech&#x27;s engineer blog" /></a>
     </nav>
 </header>
 
@@ -61,7 +83,7 @@ null
         <header class="post-header">
             <h1 class="post-title">Syntactically correct and type-safe JPA queries in Play 2.0</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="2015-07-15">15 July 2015</time>  on <a href="https://pepite.github.io/hubpress.io/tag/scala/">scala</a>, <a href="https://pepite.github.io/hubpress.io/tag/recursion/"> recursion</a>, <a href="https://pepite.github.io/hubpress.io/tag/fp/"> fp</a>
+                <time class="post-date" datetime="2015-07-15">15 July 2015</time>  on <a href="http://blog.lunatech.com/tag/scala/">scala</a>, <a href="http://blog.lunatech.com/tag/recursion/">recursion</a>, <a href="http://blog.lunatech.com/tag/fp/">fp</a>
             </section>
         </header>
 
@@ -107,8 +129,8 @@ null
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">try {
     CriteriaBuilder cb = JPA.em().getCriteriaBuilder();
-    CriteriaQuery&amp;lt;User&amp;gt; query = cb.createQuery(User.class);
-    Root&amp;lt;User&amp;gt; user = query.from(User.class);
+    CriteriaQuery&lt;User&gt; query = cb.createQuery(User.class);
+    Root&lt;User&gt; user = query.from(User.class);
     query.where(cb.equal(user.get("username"), "foo"));
     return JPA.em().createQuery(query).getSingleResult();
 } catch (NoResultException nre) {
@@ -143,7 +165,7 @@ public class User {
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">@StaticMetamodel(User.class)
 public abstract class User_ {
-    public static volatile SingularAttribute&amp;lt;User, String&amp;gt; username;
+    public static volatile SingularAttribute&lt;User, String&gt; username;
 }</code></pre>
 </div>
 </div>
@@ -246,13 +268,13 @@ public abstract class User_ {
 
 
             <figure class="author-image">
-                <a class="img" href="https://pepite.github.io/hubpress.io/author/Antoinelunatech/" style="background-image: url(https://avatars3.githubusercontent.com/u/32063588?v&#x3D;4)"><span class="hidden">Antoinelunatech's Picture</span></a>
+                <a class="img" href="http://blog.lunatech.com/author/Antoinelunatech/" style="background-image: url(https://avatars3.githubusercontent.com/u/32063588?v&#x3D;4)"><span class="hidden">Antoine Laffez's Picture</span></a>
             </figure>
 
             <section class="author">
-                <h4><a href="https://pepite.github.io/hubpress.io/author/Antoinelunatech/">Antoinelunatech</a></h4>
+                <h4><a href="http://blog.lunatech.com/author/Antoinelunatech/">Antoine Laffez</a></h4>
 
-                    <p>Read <a href="https://pepite.github.io/hubpress.io/author/Antoinelunatech/">more posts</a> by this author.</p>
+                    <p>Read <a href="http://blog.lunatech.com/author/Antoinelunatech/">more posts</a> by this author.</p>
                 <div class="author-meta">
                     
                     
@@ -262,15 +284,15 @@ public abstract class User_ {
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Syntactically%20correct%20and%20type-safe%20JPA%20queries%20in%20Play%202.0&amp;url=https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Syntactically%20correct%20and%20type-safe%20JPA%20queries%20in%20Play%202.0&amp;url=http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://pepite.github.io/hubpress.io/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.lunatech.com/2015/07/15/Syntactically-correct-and-type-safe-JPA-queries-in-Play-20.html"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -289,7 +311,7 @@ public abstract class User_ {
 
 
         <footer class="site-footer clearfix">
-            <section class="copyright"><a href="https://pepite.github.io/hubpress.io">Lunatech&#x27;s engineer blog</a> &copy; 2017</section>
+            <section class="copyright"><a href="http://blog.lunatech.com">Lunatech&#x27;s engineer blog</a> &copy; 2017</section>
             <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
         </footer>
 
@@ -310,8 +332,8 @@ public abstract class User_ {
         });
 
       </script>
-    <script type="text/javascript" src="//pepite.github.io/hubpress.io/themes/casper/assets/js/jquery.fitvids.js?v=1505737863944"></script>
-    <script type="text/javascript" src="//pepite.github.io/hubpress.io/themes/casper/assets/js/index.js?v=1505737863944"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507107592315"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507107592315"></script>
    
   
 </body>
