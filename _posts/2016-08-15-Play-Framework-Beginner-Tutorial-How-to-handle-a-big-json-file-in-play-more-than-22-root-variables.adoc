@@ -17,7 +17,7 @@ It is not a good practice to have such a big json with many root variables. Neve
 
 Since scala 2.11 we can have case class with more than 22 fields, so the following compiles.
 
-[source, scala]
+[source, json]
 ----
 case class JsonExample (    a1:String, a2:String, a3:String, a4:String, a5:String, a6:String,    a7:String, a8:String, a9:String, a10:String, a11:String, a12:String,    a13:String, a14:String, a15:String, a16:String, a17:String, a18:String,    a19:String, a20:String, a21:String, a22:String, a23:String, a24:String)
 ----
@@ -30,9 +30,10 @@ import play.api.libs.json._implicit val jsonExampleFormat = Json.format[JsonExam
 ----
 
 we get a compiler error
-```
-<console>:16: error: No unapply or unapplySeq function found       implicit val jsonExampleFormat = Json.format[JsonExample]                                                   ^
-```
+[source, scala]
+----
+<console>:16: error: No unapply or unapplySeq function found       implicit val jsonExampleFormat = Json.format[JsonExample]                             ----
+
 
 Instead we can use https://www.playframework.com/documentation/2.5.x/ScalaJsonCombinators[Play-Json extensions](requires play-json >= 2.4) 
 
