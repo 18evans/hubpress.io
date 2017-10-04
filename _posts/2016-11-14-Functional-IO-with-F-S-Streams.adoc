@@ -47,11 +47,11 @@ Right now it may seem too much is going on. But as with every other paradigm, on
 This is how we use FS2 for reading a file...
 
 First we must add its dependencies:
-
-```
+[source, scala]
+----
 "co.fs2" %% "fs2-core" % "0.9.1",
 "co.fs2" %% "fs2-io" % "0.9.1",
-```
+----
 
 // optional I/O library
 
