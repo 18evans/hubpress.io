@@ -1,6 +1,7 @@
 
-# Syntactically correct and type-safe JPA queries in Play 2.0
+= Syntactically correct and type-safe JPA queries in Play 2.0
 
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F01cfb7d3-0b3d-4087-8e2c-fea55db3269b_adobestock_36435343.jpeg
 :published_at: 2015-07-15
 :hp-tags: scala, recursion, fp
 
