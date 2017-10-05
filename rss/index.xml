@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Thu, 05 Oct 2017 12:26:48 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Thu, 05 Oct 2017 12:28:52 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Side effects and how to deal with them the cool way, Part 1: Pure functions and functors]]></title><description><![CDATA[<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2383,10 +2383,8 @@ even(3000).result</code></pre>
 <div class="paragraph">
 <p>Architecture teaches us that there is strong connection between the history of building materials and the actual structures that are built. Introducing philosophers Walter Benjamin and Peter Sloterdijk’s thoughts on the influence of materials on the practice and theory of building, I will draw a parallel between historical buildings (such as the Sagrada Família and the Chrysler Building) and the way we build front-end applications. We will discuss how using different languages and techniques leads to different artifacts, and explore specific patterns and principles from back-end development that we can use to build better architected front-end software.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>After my talk, attendees will know: why and how front-end structures become increasingly complex, what software designers can take from the history of architecture, and a set of principles from back-end and distributed architecture to introduce into front-end architecture</pre>
-</div>
+<div class="paragraph">
+<p>After my talk, attendees will know: why and how front-end structures become increasingly complex, what software designers can take from the history of architecture, and a set of principles from back-end and distributed architecture to introduce into front-end architecture</p>
 </div>
 <div class="paragraph">
 <p>20:00 - 21:00  Scala Days - Recap - <strong>Bart Schuller</strong></p>
