@@ -1,6 +1,6 @@
 = Functional Rotterdam -10-
 :hp-image: https://prismic-io.s3.amazonaws.com/lunatech%2Fab46930b-1772-4711-8aa9-89a071359d75_functionnal+rotterdam.jpg
-:published_at: 2019-01-31
+:published_at: 2016-06-320
 :hp-tags: fp
 
 Just a reminder, this Thursday. the 23rd of June, Lunatech is hosting the monthly Functional Rotterdam even
