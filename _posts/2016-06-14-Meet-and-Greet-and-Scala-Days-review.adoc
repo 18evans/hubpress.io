@@ -13,10 +13,5 @@ image::https://prismic-io.s3.amazonaws.com/lunatech%2Fd0fcb214-5f77-4ec5-b462-b5
 
 Meanwhile in the Lunatech office, Bart Schuller made a Scala Days Berlin review at the Rotterdam functional meetup where he explained some technical details. The Scala community was eagerly expecting the Scala Days. In Fact, Martin Odersky, the creator was part of it as a keynote speaker. More than 1000 enthusiastic Scala developers were in Berlin and the event was completely sold out. All of Lunatech were present and our people spent three days of bliss between the Scala conference and the Giant frühsthück. 
 
-As you can see the month of June was very busy and the next Scala dedicated event will be hosted in Lyon (Scala i.o) on 27th and 28th of October. Summer is here but we are not on holiday yet... some more news to come during these beautiful days. If you want to be part of it next year you can join us and keep in touch for any advice. And remember that we LOVE Scala
-// = Your Blog title
-// See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
-// :hp-image: /covers/cover.png
-// :published_at: 2019-01-31
-// :hp-tags: HubPress, Blog, Open_Source,
-// :hp-alt-title: My English Title
+As you can see the month of June was very busy and the next Scala dedicated event will be hosted in Lyon (Scala i.o) on 27th and 28th of October. Summer is here but we are not on holiday yet... some more news to come during these beautiful days. If you want to be part of it next year you can join us and keep in touch for any advice. 
+
