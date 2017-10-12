@@ -117,8 +117,7 @@ Run `$ vagrant up` and wait until the command completes successfully. NOTE: You 
 ## Visualizing your provisioned DC/OS cluster
 If all is well, you should be able to access http://m1.dcos/in your web browser (Safari, Chrome, etc...)
 
-image::https://lunatech.prismic.io/medias/?open=Wd9SRCkAACfGSOeZ
-
+image::https://lunatech.prismic.io/medias/?open=Wd9SRCkAACfGSOeZ[]
 
 his is the front user interface of the DC/OS cluster you just prepared.
 
