@@ -98,7 +98,7 @@ $ echo "oauth_enabled: 'false'" >> etc/config-1.9.yaml
 
 Register temporary environment variables for provisioning your cluster. These two commands are required in order to set up a specific DC/OS version and for making use of the configuration we edited to not use OAuth. (see above command)
 
-[source, scala]
+[source,scala]
 ----
 $ export DCOS_GENERATE_CONFIG_PATH=installers/dcos/dcos_generate_config-1.9.2.sh
 
