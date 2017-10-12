@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>The DC/OS (Datacenter Operating System)-Part 1</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- This is a comment -->
+    <link rel="shortcut icon" href="http://blog.lunatech.com/favicon.ico">
+     
+    <link rel="stylesheet" type="text/css" href="//blog.lunatech.com/themes/casper/assets/css/screen.css?v=1507815397771" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <!-- link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/atom-one-light.min.css"/ -->
+   
+    <link rel="canonical" href="http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lunatech&#x27;s engineer blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="The DC/OS (Datacenter Operating System)-Part 1" />
+    <meta property="og:description" content="DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone. It is a system that consists of Linux machines or nodes" />
+    <meta property="og:url" content="http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html" />
+    <meta property="og:image" content="https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg" />
+    <meta property="article:published_time" content="2017-10-01T00:00:00.000Z" />
+    <meta property="article:tag" content="datacenter" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The DC/OS (Datacenter Operating System)-Part 1" />
+    <meta name="twitter:description" content="DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone. It is a system that consists of Linux machines or nodes" />
+    <meta name="twitter:url" content="http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html" />
+    <meta name="twitter:image:src" content="https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lunatech's engineer blog",
+    "author": {
+        "@type": "Person",
+        "name": "Antoine Laffez",
+        "image": "https://avatars3.githubusercontent.com/u/32063588?v=4",
+        "url": "http://blog.lunatech.com/author/Antoinelunatech/"
+    },
+    "headline": "The DC/OS (Datacenter Operating System)-Part 1",
+    "url": "http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html",
+    "datePublished": "2017-10-01T00:00:00.000Z",
+    "image": "https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg",
+    "keywords": "datacenter",
+    "description": "DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone. It is a system that consists of Linux machines or nodes"
+}
+    </script>
+
+    <meta name="generator" content="HubPress" />
+    <link rel="alternate" type="application/rss+xml" title="Lunatech&#x27;s engineer blog" href="http://blog.lunatech.com/rss/" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+</head>
+<body class="post-template tag-datacenter nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head " style="background-image: url(https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg)">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="http://blog.lunatech.com"><img src="http://lunatech.com/assets/images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Lunatech&#x27;s engineer blog" /></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-datacenter">
+
+        <header class="post-header">
+            <h1 class="post-title">The DC/OS (Datacenter Operating System)-Part 1</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2017-10-01">01 October 2017</time>  on <a href="http://blog.lunatech.com/tag/datacenter/">datacenter</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone.</p>
+</div>
+<div class="paragraph">
+<p>It is a system that consists of Linux machines or nodes that communicate with one another, effectively sub-dividing large applications into small tasks that can be executed independently from one another in a more resource efficient manner. It is structured in such a way that each node performs a certain role. The roles these nodes can play include the master node, the private agent node, and the public agent node.</p>
+</div>
+<div class="paragraph">
+<p>The <em>master node/s</em> typically run a few services in the background (Zookeeper, Mesos, etc&#8230;&#8203;) but generally are responsible for monitoring and making sure that the DC/OS cluster is in good condition, (by checking: the state of every node, running services or scheduled tasks, etc&#8230;&#8203;), it reports any problems it identifies visualizable in the web UI homepage for DC/OS.</p>
+</div>
+<div class="paragraph">
+<p>The <em>agent nodes</em> are the workhorses for running services and applications. These agent nodes communicate their available resources to the master node and the master node being the orchestrator, devises a plan on how to carry out tasks with the resources these agent nodes expose and work toward combining their results. The master and agent nodes work together in an attempt to exploit and fully utilize the available resources agent nodes ( together as a whole) contribute as an offering to the cluster of master nodes.</p>
+</div>
+<div class="paragraph">
+<p>This approach ensures that every task has dedicated resources making evaluations even more efficient, and effectively eliminating the problem of hardware limitations, typically seen when running an application on a single powerful machine.</p>
+</div>
+<div class="paragraph">
+<p>After these tasks are evaluated, they are then communicated to a leader node (an elected master node that manages how and on which node tasks are running), that knows how to combine their outcomes and finish a cycle of what the application / service aimed to do.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.mesosphere.com/1.9/">DC/OS Documentation</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_differentiating_apache_mesos_mesosphere_and_dc_os">Differentiating Apache Mesos, Mesosphere and DC/OS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Mesos -</strong> an open-source cluster resource manager, the Kernel of DC/OS.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mesosphere -</strong> the company that started and continues to contribute to both Apache Mesos and DC/OS.</p>
+</div>
+<div class="paragraph">
+<p><strong>DC/OS -</strong> an open-source distribution around Apache Mesos including UI, networking, and many other pieces. Mesosphere also offers an Enterprise Edition of DC/OS with support and some advanced features.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://stackoverflow.com/questions/44171100/whats-difference-between-apache-mesos-mesosphere-and-dcos">What&#8217;s difference between Apache Mesos, Mesosphere and DCOS?</a>
+Please <strong>NOTE</strong> the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>this setup is not intended for production use, but rather as a means for you to experience building an environment for sandboxing purposes.</p>
+</li>
+<li>
+<p>you will need to meet the minimum hardware requirements in order to fully experience the setup process for yourself.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/dcos/dcos-vagrant/blob/master/">Github dcos-vagrant repository</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Hardware requirements</strong></p>
+</div>
+<div class="paragraph">
+<p>In terms of hardware, you should have at least <strong>4GB available memory / RAM</strong> and your operating system should be listed below:</p>
+</div>
+<div class="paragraph">
+<p><strong>Operating System (OS)</strong></p>
+</div>
+<div class="paragraph">
+<p>Mac OS X 10.x</p>
+</div>
+<div class="paragraph">
+<p>Windows 7, 10</p>
+</div>
+<div class="paragraph">
+<p>Ubuntu 14, 15, 16</p>
+</div>
+<div class="paragraph">
+<p>Fedora 23</p>
+</div>
+<div class="paragraph">
+<p>Arch Linux</p>
+</div>
+<div class="paragraph">
+<p><strong>Software requirements</strong></p>
+</div>
+<div class="paragraph">
+<p>For those already using a package manager, (i.e. Homebrew for the Mac, Linuxbrew for Linux, Scoop for Windows), please install the following components: <code>vagrant</code>,<code>VirtualBox</code>, and <code>git</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have a package manager, you can always install the tools needed for this tutorial manually.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/downloads">Git</a> a distributed version control system.</p>
+</li>
+<li>
+<p><a href="https://www.vagrantup.com/downloads.html">Vagrant</a> a tool for building and managing virtual machine environments. It is recommended you install version 1.9.7 as previous versions appear to have issues.</p>
+</li>
+<li>
+<p><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> a cross-platform virtualization application.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you haven&#8217;t already done so, it would be good to start by first creating a working project directory and changing to that directory on a terminal.</p>
+</div>
+<div class="paragraph">
+<p>Once in your working directory, run the following commands to clone the project repository and make it the current directory in your preferred command line tool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ git clone https://github.com/dcos/dcos-vagrant
+
+$ cd dcos-vagrant</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dc_os_setup_guidelines">DC/OS setup guidelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install <code>vagrant-hostmanager</code>, a plugin that makes it possible for you to access virtual machines from your computer via ssh.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ vagrant plugin install vagrant-hostmanager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following command populates your hosts file with the DNS routes to each of your cluster nodes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ vagrant hostmanager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This next command appends to cluster configuration file a property that disables OAuth authentication for your DC/OS cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ echo "oauth_enabled: 'false'" &gt;&gt; etc/config-1.9.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Register temporary environment variables for provisioning your cluster. These two commands are required in order to set up a specific DC/OS version and for making use of the configuration we edited to not use OAuth. (see above command)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ export DCOS_GENERATE_CONFIG_PATH=installers/dcos/dcos_generate_config-1.9.2.sh
+
+$ export DCOS_CONFIG_PATH=etc/config-1.9.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy a predefined template for a DC/OS cluster describing the nodes (m = master, a = private agent, p = public agent) under the appropriate yaml filename. Vagrant searches for a file called VagrantConfig.yaml that is used to figure out which virtual machines to create.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ cp VagrantConfig-1m-2a-1p.yaml VagrantConfig.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Before we run the command to create virtual machines, it would be good to review the configuration file.
+Edit the <code>VagrantConf.yaml</code> file and lower the memory for the private agent nodes (a1, a2) down from <code>6144</code> to <code>2048</code> Megabytes or to some value you are certain your machine can handle.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>$ vagrant up</code> and wait until the command completes successfully. NOTE: You can ignore the countless warning logs as they are just part of the logic defined in the deploy script to repeatedly access one of the machines still being prepared.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visualizing_your_provisioned_dc_os_cluster">Visualizing your provisioned DC/OS cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If all is well, you should be able to access <a href="http://m1.dcos/in" class="bare">http://m1.dcos/in</a> your web browser (Safari, Chrome, etc&#8230;&#8203;)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech%2F4f2c172b-0730-4fbb-bd7e-168f5ba59380_1visualizecluster.png" alt="lunatech%2F4f2c172b 0730 4fbb bd7e 168f5ba59380 1visualizecluster.png">
+</div>
+</div>
+<div class="paragraph">
+<p>This is the front user interface of the DC/OS cluster you just prepared.</p>
+</div>
+<div class="paragraph">
+<p>From here, you have a range of things you can do with your newly provisioned cluster including but not limited to viewing the state of your running services, nodes, management package and or services, etc&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can install the dcos CLI tool to perform the same said tasks via terminal:</p>
+</div>
+<div class="paragraph">
+<p><code>ci/dcos-install-cli.sh</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_making_snapshots_of_your_working_cluster">Making snapshots of your working cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you intend to make changes to your cluster, the first thing we would recommend is to save the working state. If you installed VirtualBox you should be able to open the application and see which virtual machines you have running.</p>
+</div>
+<div class="paragraph">
+<p>The first thing to do once you open the application is to shutdown/power off every machine. Select every machine listed in the left, right click and hover your cursor over <code>Close</code> then click on <code>Power off</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the top right corner, you should see a button <code>Snapshots</code> if you click on this one you can save the current state of each machine. Making Snapshots in <a href="http://www.techrepublic.com/article/how-to-use-snapshots-in-virtualbox/">VirtualBox</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_destroying_your_cluster">Destroying your cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you&#8217;re interested to continue with part 2 and 3 of this tutorial, it&#8217;s best not to destroy your cluster. Just keep in mind that after you are through with reading through this guide, you will most likely want to clean your computer.</p>
+</div>
+<div class="paragraph">
+<p>To do so, simply run the command <code>vagrant destroy</code> -f from within the <code>dcos-vagrant</code> project repository you cloned.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_coming_soon">Coming soon</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Part 2 - Running services on your DC/OS cluster</p>
+</li>
+<li>
+<p>Part 3 - Enforcing Network Policies with Calico</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="http://blog.lunatech.com/author/Antoinelunatech/" style="background-image: url(https://avatars3.githubusercontent.com/u/32063588?v&#x3D;4)"><span class="hidden">Antoine Laffez's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="http://blog.lunatech.com/author/Antoinelunatech/">Antoine Laffez</a></h4>
+
+                    <p>Read <a href="http://blog.lunatech.com/author/Antoinelunatech/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=The%20DC%2FOS%20(Datacenter%20Operating%20System)-Part%201&amp;url=http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://blog.lunatech.com">Lunatech&#x27;s engineer blog</a> &copy; 2017</section>
+            <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script>
+   
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script>
+    <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+           
+          });
+        });
+
+      </script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/jquery.fitvids.js?v=1507815397771"></script>
+    <script type="text/javascript" src="//blog.lunatech.com/themes/casper/assets/js/index.js?v=1507815397771"></script>
+   
+  
+</body>
+</html>
