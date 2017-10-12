@@ -88,6 +88,32 @@ $ vagrant hostmanager
 
 This next command appends to cluster configuration file a property that disables OAuth authentication for your DC/OS cluster.
 
+[scala,source]
+----
+$ echo "oauth_enabled: 'false'" >> etc/config-1.9.yaml
+----
+
+Register temporary environment variables for provisioning your cluster. These two commands are required in order to set up a specific DC/OS version and for making use of the configuration we edited to not use OAuth. (see above command)
+
+[scala, source]
+----
+$ export DCOS_GENERATE_CONFIG_PATH=installers/dcos/dcos_generate_config-1.9.2.sh
+
+$ export DCOS_CONFIG_PATH=etc/config-1.9.yaml
+----
+Copy a predefined template for a DC/OS cluster describing the nodes (m = master, a = private agent, p = public agent) under the appropriate yaml filename. Vagrant searches for a file called VagrantConfig.yaml that is used to figure out which virtual machines to create.
+
+[source,scala]
+----
+$ cp VagrantConfig-1m-2a-1p.yaml VagrantConfig.yaml
+----
+Before we run the command to create virtual machines, it would be good to review the configuration file.
+Edit the `VagrantConf.yaml` file and lower the memory for the private agent nodes (a1, a2) down from `6144` to `2048` Megabytes or to some value you are certain your machine can handle.
+
+Run `$ vagrant up` and wait until the command completes successfully. NOTE: You can ignore the countless warning logs as they are just part of the logic defined in the deploy script to repeatedly access one of the machines still being prepared.
+
+# Visualizing your provisioned DC/OS cluster
+If all is well, you should be able to access http://m1.dcos/in your web browser (Safari, Chrome, etc...)
 
 
 
