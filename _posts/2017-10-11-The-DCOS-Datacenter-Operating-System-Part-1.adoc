@@ -1,5 +1,6 @@
 = The DC/OS (Datacenter Operating System)-Part 1
 
+:hp-image:: https://lunatech.prismic.io/medias/?open=Wd9ZQykAAMHGSQZa
 :hp-tags: Datacenter
 
 DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone.
