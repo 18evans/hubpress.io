@@ -1,5 +1,6 @@
 = The DC/OS (Datacenter Operating System)-Part 1
-:hp-image:: https://lunatech.prismic.io/medias/?open=Wd9ZQykAAMHGSQZa
+
+:hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg
 :published_at: 2017-10-01
 :hp-tags: datacenter
 
@@ -64,7 +65,7 @@ If you haven't already done so, it would be good to start by first creating a wo
 
 Once in your working directory, run the following commands to clone the project repository and make it the current directory in your preferred command line tool.
 
-[scala,source]
+[source,scala]
 
 ----
 $ git clone https://github.com/dcos/dcos-vagrant
@@ -76,28 +77,28 @@ $ cd dcos-vagrant
 
 Install `vagrant-hostmanager`, a plugin that makes it possible for you to access virtual machines from your computer via ssh.
 
-[scala,source]
+[source,scala]
 ----
 $ vagrant plugin install vagrant-hostmanager
 ----
 
 The following command populates your hosts file with the DNS routes to each of your cluster nodes.
 
-[scala,source]
+[source,scala]
 ----
 $ vagrant hostmanager
 ----
 
 This next command appends to cluster configuration file a property that disables OAuth authentication for your DC/OS cluster.
 
-[scala,source]
+[source,scala]
 ----
 $ echo "oauth_enabled: 'false'" >> etc/config-1.9.yaml
 ----
 
 Register temporary environment variables for provisioning your cluster. These two commands are required in order to set up a specific DC/OS version and for making use of the configuration we edited to not use OAuth. (see above command)
 
-[scala, source]
+[source, scala]
 ----
 $ export DCOS_GENERATE_CONFIG_PATH=installers/dcos/dcos_generate_config-1.9.2.sh
 
@@ -117,9 +118,9 @@ Run `$ vagrant up` and wait until the command completes successfully. NOTE: You 
 ## Visualizing your provisioned DC/OS cluster
 If all is well, you should be able to access http://m1.dcos/in your web browser (Safari, Chrome, etc...)
 
-image::https://lunatech.prismic.io/medias/?open=Wd9SRCkAACfGSOeZ[]
+image::https://prismic-io.s3.amazonaws.com/lunatech%2F4f2c172b-0730-4fbb-bd7e-168f5ba59380_1visualizecluster.png[]
 
-his is the front user interface of the DC/OS cluster you just prepared.
+This is the front user interface of the DC/OS cluster you just prepared.
 
 From here, you have a range of things you can do with your newly provisioned cluster including but not limited to viewing the state of your running services, nodes, management package and or services, etc...
 
