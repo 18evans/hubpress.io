@@ -125,9 +125,10 @@ This is the front user interface of the DC/OS cluster you just prepared.
 From here, you have a range of things you can do with your newly provisioned cluster including but not limited to viewing the state of your running services, nodes, management package and or services, etc...
 
 Alternatively, you can install the dcos CLI tool to perform the same said tasks via terminal:
-
-`ci/dcos-install-cli.sh`
-
+[source,scala]
+----
+ci/dcos-install-cli.sh
+----
 ## Making snapshots of your working cluster
 
 If you intend to make changes to your cluster, the first thing we would recommend is to save the working state. If you installed VirtualBox you should be able to open the application and see which virtual machines you have running.
