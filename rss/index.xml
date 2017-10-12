@@ -1,4 +1,237 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Thu, 12 Oct 2017 13:24:00 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Functional Rotterdam-15]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Lunatech's engineer blog]]></title><description><![CDATA[FP, Scala and Java]]></description><link>http://blog.lunatech.com</link><image><url>https://prismic-io.s3.amazonaws.com/lunatech/e835cca8cd12752589fe15810104c4e28a482ae4_photodune-6952986-system-l.jpg</url><title>Lunatech&apos;s engineer blog</title><link>http://blog.lunatech.com</link></image><generator>RSS for Node</generator><lastBuildDate>Thu, 12 Oct 2017 13:24:22 GMT</lastBuildDate><atom:link href="http://blog.lunatech.com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[The DC/OS (Datacenter Operating System)-Part 1]]></title><description><![CDATA[<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone.</p>
+</div>
+<div class="paragraph">
+<p>It is a system that consists of Linux machines or nodes that communicate with one another, effectively sub-dividing large applications into small tasks that can be executed independently from one another in a more resource efficient manner. It is structured in such a way that each node performs a certain role. The roles these nodes can play include the master node, the private agent node, and the public agent node.</p>
+</div>
+<div class="paragraph">
+<p>The <em>master node/s</em> typically run a few services in the background (Zookeeper, Mesos, etc&#8230;&#8203;) but generally are responsible for monitoring and making sure that the DC/OS cluster is in good condition, (by checking: the state of every node, running services or scheduled tasks, etc&#8230;&#8203;), it reports any problems it identifies visualizable in the web UI homepage for DC/OS.</p>
+</div>
+<div class="paragraph">
+<p>The <em>agent nodes</em> are the workhorses for running services and applications. These agent nodes communicate their available resources to the master node and the master node being the orchestrator, devises a plan on how to carry out tasks with the resources these agent nodes expose and work toward combining their results. The master and agent nodes work together in an attempt to exploit and fully utilize the available resources agent nodes ( together as a whole) contribute as an offering to the cluster of master nodes.</p>
+</div>
+<div class="paragraph">
+<p>This approach ensures that every task has dedicated resources making evaluations even more efficient, and effectively eliminating the problem of hardware limitations, typically seen when running an application on a single powerful machine.</p>
+</div>
+<div class="paragraph">
+<p>After these tasks are evaluated, they are then communicated to a leader node (an elected master node that manages how and on which node tasks are running), that knows how to combine their outcomes and finish a cycle of what the application / service aimed to do.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.mesosphere.com/1.9/">DC/OS Documentation</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_differentiating_apache_mesos_mesosphere_and_dc_os">Differentiating Apache Mesos, Mesosphere and DC/OS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Mesos -</strong> an open-source cluster resource manager, the Kernel of DC/OS.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mesosphere -</strong> the company that started and continues to contribute to both Apache Mesos and DC/OS.</p>
+</div>
+<div class="paragraph">
+<p><strong>DC/OS -</strong> an open-source distribution around Apache Mesos including UI, networking, and many other pieces. Mesosphere also offers an Enterprise Edition of DC/OS with support and some advanced features.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://stackoverflow.com/questions/44171100/whats-difference-between-apache-mesos-mesosphere-and-dcos">What&#8217;s difference between Apache Mesos, Mesosphere and DCOS?</a>
+Please <strong>NOTE</strong> the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>this setup is not intended for production use, but rather as a means for you to experience building an environment for sandboxing purposes.</p>
+</li>
+<li>
+<p>you will need to meet the minimum hardware requirements in order to fully experience the setup process for yourself.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/dcos/dcos-vagrant/blob/master/">Github dcos-vagrant repository</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Hardware requirements</strong></p>
+</div>
+<div class="paragraph">
+<p>In terms of hardware, you should have at least <strong>4GB available memory / RAM</strong> and your operating system should be listed below:</p>
+</div>
+<div class="paragraph">
+<p><strong>Operating System (OS)</strong></p>
+</div>
+<div class="paragraph">
+<p>Mac OS X 10.x</p>
+</div>
+<div class="paragraph">
+<p>Windows 7, 10</p>
+</div>
+<div class="paragraph">
+<p>Ubuntu 14, 15, 16</p>
+</div>
+<div class="paragraph">
+<p>Fedora 23</p>
+</div>
+<div class="paragraph">
+<p>Arch Linux</p>
+</div>
+<div class="paragraph">
+<p><strong>Software requirements</strong></p>
+</div>
+<div class="paragraph">
+<p>For those already using a package manager, (i.e. Homebrew for the Mac, Linuxbrew for Linux, Scoop for Windows), please install the following components: <code>vagrant</code>,<code>VirtualBox</code>, and <code>git</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have a package manager, you can always install the tools needed for this tutorial manually.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://git-scm.com/downloads">Git</a> a distributed version control system.</p>
+</li>
+<li>
+<p><a href="https://www.vagrantup.com/downloads.html">Vagrant</a> a tool for building and managing virtual machine environments. It is recommended you install version 1.9.7 as previous versions appear to have issues.</p>
+</li>
+<li>
+<p><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> a cross-platform virtualization application.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you haven&#8217;t already done so, it would be good to start by first creating a working project directory and changing to that directory on a terminal.</p>
+</div>
+<div class="paragraph">
+<p>Once in your working directory, run the following commands to clone the project repository and make it the current directory in your preferred command line tool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ git clone https://github.com/dcos/dcos-vagrant
+
+$ cd dcos-vagrant</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dc_os_setup_guidelines">DC/OS setup guidelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install <code>vagrant-hostmanager</code>, a plugin that makes it possible for you to access virtual machines from your computer via ssh.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ vagrant plugin install vagrant-hostmanager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following command populates your hosts file with the DNS routes to each of your cluster nodes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ vagrant hostmanager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This next command appends to cluster configuration file a property that disables OAuth authentication for your DC/OS cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ echo "oauth_enabled: 'false'" &gt;&gt; etc/config-1.9.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Register temporary environment variables for provisioning your cluster. These two commands are required in order to set up a specific DC/OS version and for making use of the configuration we edited to not use OAuth. (see above command)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ export DCOS_GENERATE_CONFIG_PATH=installers/dcos/dcos_generate_config-1.9.2.sh
+
+$ export DCOS_CONFIG_PATH=etc/config-1.9.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy a predefined template for a DC/OS cluster describing the nodes (m = master, a = private agent, p = public agent) under the appropriate yaml filename. Vagrant searches for a file called VagrantConfig.yaml that is used to figure out which virtual machines to create.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-scala" data-lang="scala">$ cp VagrantConfig-1m-2a-1p.yaml VagrantConfig.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Before we run the command to create virtual machines, it would be good to review the configuration file.
+Edit the <code>VagrantConf.yaml</code> file and lower the memory for the private agent nodes (a1, a2) down from <code>6144</code> to <code>2048</code> Megabytes or to some value you are certain your machine can handle.</p>
+</div>
+<div class="paragraph">
+<p>Run <code>$ vagrant up</code> and wait until the command completes successfully. NOTE: You can ignore the countless warning logs as they are just part of the logic defined in the deploy script to repeatedly access one of the machines still being prepared.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visualizing_your_provisioned_dc_os_cluster">Visualizing your provisioned DC/OS cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If all is well, you should be able to access <a href="http://m1.dcos/in" class="bare">http://m1.dcos/in</a> your web browser (Safari, Chrome, etc&#8230;&#8203;)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://prismic-io.s3.amazonaws.com/lunatech%2F4f2c172b-0730-4fbb-bd7e-168f5ba59380_1visualizecluster.png" alt="lunatech%2F4f2c172b 0730 4fbb bd7e 168f5ba59380 1visualizecluster.png">
+</div>
+</div>
+<div class="paragraph">
+<p>This is the front user interface of the DC/OS cluster you just prepared.</p>
+</div>
+<div class="paragraph">
+<p>From here, you have a range of things you can do with your newly provisioned cluster including but not limited to viewing the state of your running services, nodes, management package and or services, etc&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can install the dcos CLI tool to perform the same said tasks via terminal:</p>
+</div>
+<div class="paragraph">
+<p><code>ci/dcos-install-cli.sh</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_making_snapshots_of_your_working_cluster">Making snapshots of your working cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you intend to make changes to your cluster, the first thing we would recommend is to save the working state. If you installed VirtualBox you should be able to open the application and see which virtual machines you have running.</p>
+</div>
+<div class="paragraph">
+<p>The first thing to do once you open the application is to shutdown/power off every machine. Select every machine listed in the left, right click and hover your cursor over <code>Close</code> then click on <code>Power off</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the top right corner, you should see a button <code>Snapshots</code> if you click on this one you can save the current state of each machine. Making Snapshots in <a href="http://www.techrepublic.com/article/how-to-use-snapshots-in-virtualbox/">VirtualBox</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_destroying_your_cluster">Destroying your cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you&#8217;re interested to continue with part 2 and 3 of this tutorial, it&#8217;s best not to destroy your cluster. Just keep in mind that after you are through with reading through this guide, you will most likely want to clean your computer.</p>
+</div>
+<div class="paragraph">
+<p>To do so, simply run the command <code>vagrant destroy</code> -f from within the <code>dcos-vagrant</code> project repository you cloned.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_coming_soon">Coming soon</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Part 2 - Running services on your DC/OS cluster</p>
+</li>
+<li>
+<p>Part 3 - Enforcing Network Policies with Calico</p>
+</li>
+</ul>
+</div>
+</div>
+</div>]]></description><link>http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html</link><guid isPermaLink="true">http://blog.lunatech.com/2017/10/01/The-DCOS-Datacenter-Operating-System-Part-1.html</guid><category><![CDATA[datacenter]]></category><dc:creator><![CDATA[Antoine Laffez]]></dc:creator><pubDate>Sun, 01 Oct 2017 00:00:00 GMT</pubDate></item><item><title><![CDATA[Functional Rotterdam-15]]></title><description><![CDATA[<div class="paragraph">
 <p>Functional Rotterdam is a meetup held monthly in our Lunatech office about Programming Languages, Scala, Computer programming, Haskell, Functional Programming and Clojure, organized by Vijay Kiran, Development Manager at Lunatech.  Thomas Meijers, Software Engineer at Lunatech, presented Free of Interpretation. The presentation was filmed by Celeste Franco (thanks!!).</p>
 </div>
 <div class="paragraph">
