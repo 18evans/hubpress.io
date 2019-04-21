@@ -2,7 +2,7 @@
 
 :hp-image:: https://prismic-io.s3.amazonaws.com/lunatech%2F9834e195-c06e-4daf-936d-0c3125d899ba_computers-2652997_1920.jpg
 :published_at: 2017-10-01
-:hp-tags: datacenter
+:hp-tags: devops
 
 
 DC/OS or Datacenter Operating System is an open-source project started by a company named Mesosphere. The project aimed to make infrastructure blueprints (for building and delivering data-driven services to run on any datacenter or cloud) accessible for everyone.
